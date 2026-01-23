@@ -90,5 +90,216 @@
     <a href="index.html">          Back to Home</a>
 </body>
 </html>
-
  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day | Invisible String</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --soft-pink: #fdf2f2;
+            --deep-rose: #8e2137;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--soft-pink);
+            font-family: 'Lora', serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* --- Cover Page --- */
+        #cover {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 1s ease;
+            cursor: pointer;
+        }
+
+        #cover h2 {
+            font-family: 'Dancing Script', cursive;
+            color: var(--gold);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .gold-thread {
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            margin: 20px 0;
+        }
+
+        /* --- Main Content (Hidden initially) --- */
+        #main-content {
+            opacity: 0;
+            transition: opacity 2s ease;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5em;
+            color: var(--deep-rose);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: var(--gold);
+            margin-bottom: 40px;
+        }
+
+        /* Photo Styling */
+        .photo-frame {
+            position: relative;
+            display: inline-block;
+            margin: 20px auto;
+            border: 10px solid white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: rotate(-2deg);
+            transition: transform 0.5s;
+        }
+
+        .photo-frame:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .photo-frame img {
+            max-width: 300px;
+            display: block;
+        }
+
+        .message-box {
+            max-width: 600px;
+            margin: 40px auto;
+            line-height: 1.8;
+            font-size: 1.2em;
+            color: #444;
+            background: rgba(255,255,255,0.5);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        /* Rotating Rose */
+        .rose-icon {
+            width: 80px;
+            margin-top: 30px;
+            animation: slowRotate 10s linear infinite;
+        }
+
+        @keyframes slowRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .falling-rose {
+            position: fixed;
+            top: -20px;
+            pointer-events: none;
+            z-index: 50;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(105vh) rotate(360deg); }
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            text-decoration: none;
+            color: var(--gold);
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="rose-day.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="cover" onclick="startExperience()">
+        <h2>"One single thread of gold..."</h2>
+        <div class="gold-thread"></div>
+        <p>Click to open your Rose Day surprise</p>
+    </div>
+
+    <div id="main-content">
+        <h1 class="title">Happy Rose Day, My Love</h1>
+        <p class="subtitle">"Isn't it just so pretty to think, all along there was an invisible string..."</p>
+
+        <div class="photo-frame">
+            <img src="her-with-roses.jpg" alt="You with Roses">
+        </div>
+
+        <div class="message-box">
+            Since those first days in mid-August, life has moved at the speed of a dream. 
+            From meeting you to moving in together by the month's end, every step felt like fate pulling us closer. 
+            The roses I get you every month are just small tokens of a much bigger promise: 
+            that no matter how much time passes, I will always choose to keep our love blooming. 
+            You aren't just my partner; you're my "peace."
+        </div>
+
+        <img src="rose-day.jpeg" class="rose-icon" alt="Rose">
+
+        <br>
+        <a href="index.html" class="back-btn">Back to our story</a>
+    </div>
+
+    <script>
+        function startExperience() {
+            // Play Music
+            const audio = document.getElementById('bgMusic');
+            audio.play();
+
+            // Hide Cover
+            const cover = document.getElementById('cover');
+            cover.style.opacity = '0';
+            setTimeout(() => {
+                cover.style.display = 'none';
+                // Show Content
+                document.getElementById('main-content').style.opacity = '1';
+            }, 1000);
+
+            // Start Falling Roses
+            setInterval(createFallingRose, 700);
+        }
+
+        function createFallingRose() {
+            const rose = document.createElement("div");
+            rose.innerHTML = "🌹";
+            rose.className = "falling-rose";
+            document.body.appendChild(rose);
+            
+            const startX = Math.random() * window.innerWidth;
+            const duration = Math.random() * 3 + 4;
+            const size = Math.random() * 15 + 15;
+            
+            rose.style.left = startX + "px";
+            rose.style.animationDuration = duration + "s";
+            rose.style.fontSize = size + "px";
+            rose.style.opacity = Math.random() * 0.5 + 0.3; // Subtler roses
+            
+            setTimeout(() => { rose.remove(); }, duration * 1000);
+        }
+    </script>
+</body>
+</html>

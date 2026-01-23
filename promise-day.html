@@ -95,7 +95,7 @@
         <div class="heart"></div>
     </div>
     <p class="message">My Bacchu, I promise to stay with you and be your strongest support through all thick and thin. I promise to do my best to not let you down and be there for you anytime you need me. Even if sometimes things aren't going well between us, know that my love for you will always be unwavering, a silent promise that I'll be there for you, protect you from everything.</p>
-    <audio autoplay loop>
+    <!-- <audio autoplay loop>
         <source src="promise-music.mp3" type="audio/mpeg">
     </audio>
     <br>
@@ -107,8 +107,28 @@
             let audio = new Audio('promise-music.mp3');
             audio.play();
         }
+    </script> -->
+    <audio id="bgMusic" loop>
+        <source src="promise-music.mp3" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        const audio = document.getElementById('bgMusic');
+    
+        // Function to play music
+        function playMusic() {
+            audio.play().catch(error => {
+                console.log("Autoplay prevented, waiting for user interaction.");
+            });
+        }
+    
+        // This tries to play the music as soon as she clicks anywhere on the page
+        document.addEventListener('click', function() {
+            playMusic();
+        }, { once: true }); // { once: true } makes sure this only happens on the first click
     </script>
         
 </body>
 </html>
+
 

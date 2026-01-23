@@ -57,12 +57,17 @@
         }
 
         /* --- Main Layout --- */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 20px;
-            text-align: center;
-            position: relative;
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 2px; /* Thicker line */
+            height: 100%;
+            background: #d4af37; /* Solid Gold */
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); /* Adds a subtle glow */
+            z-index: -1;
+            opacity: 0.5; /* Makes it elegant, not distracting */
         }
 
         /* The Literal Golden Thread */
@@ -193,9 +198,9 @@
             
             <div class="lyrics-break">"Hell was the journey but it brought me heaven..."</div>
 
-            <p>Every monthly anniversary, when I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for. Happy Rose Day, my Bacchu.</p>
+            <p>Every monthly anniversary, when I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for. Happy Rose Day, mera Bacchu.</p>
             
-            <div class="arijit-quote">"Tera humsafar hua... toh mukkammal ho gaya."<br>(Since I became your companion... I have become complete.)</div>
+            <!-- <div class="arijit-quote">"Tera humsafar hua... toh mukkammal ho gaya."<br></div> -->
         </div>
 
         <a href="index.html" class="back-link">Return Home</a>
@@ -430,6 +435,7 @@
     </script>
 </body>
 </html> -->
+
 
 
 

@@ -1,97 +1,202 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rose Day</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <title>Rose Day | Our Invisible String</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body {
-            text-align: center;
-            font-family: 'Dancing Script', cursive;
-            background-color: #ffdde1;
-            padding: 20px;
-            overflow: auto;
+        :root {
+            --gold: #d4af37;
+            --cream: #fffaf0;
+            --rose-dust: #b57e7e;
+            --text-color: #2c2c2c;
         }
-        .title {
-            font-size: 40px;
-            color: #b52e6f;
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--cream);
+            font-family: 'Lora', serif;
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-        .rose-container {
-            position: relative;
-            margin-top: 50px;
+
+        /* --- Elegant Cover Screen --- */
+        #cover {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
         }
-        .rose {
-            width: 300px;
-            height: 300px;
-            animation: rotate 100s linear infinite;
+
+        #cover.lifted {
+            transform: translateY(-100%);
         }
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .falling-roses {
-            position: absolute;
-            top: -50px;
-            color: red;
-            font-size: 24px;
-            animation: fall linear infinite;
-        }
-        @keyframes fall {
-            to { transform: translateY(100vh); }
-        }
-        .love-message {
-            margin-top: 30px;
-            font-size: 24px;
-            background: #fff0f3;
-            padding: 15px;
-            border-radius: 10px;
-            display: inline-block;
+
+        .thread-btn {
+            background: none;
+            border: none;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+            transition: 0.3s;
         }
-        .love-message:hover {
-            transform: scale(1.1);
+
+        .thread-btn:hover {
+            letter-spacing: 5px;
+            opacity: 0.7;
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .header-text {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 1.5s all ease;
+        }
+
+        /* --- The Hero Photo Styling --- */
+        .photo-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: 2s all ease;
+        }
+
+        .photo-frame {
+            background: white;
+            padding: 15px 15px 60px 15px; /* Polaroid style */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            max-width: 450px;
+            display: block;
+        }
+
+        .polaroid-caption {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: var(--rose-dust);
+        }
+
+        /* --- The Personal Message --- */
+        .message {
+            font-size: 1.15rem;
+            line-height: 2;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #444;
+            opacity: 0;
+            transition: 2s all ease;
+        }
+
+        .lyrics-break {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: var(--gold);
+            margin: 40px 0;
+            font-size: 1.4rem;
+        }
+
+        /* --- Animation Triggers --- */
+        .reveal {
+            opacity: 1 !important;
+            transform: translate(0) scale(1) !important;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 60px;
+            text-decoration: none;
+            color: var(--gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
     </style>
-    <script>
-        function createFallingRose() {
-            const rose = document.createElement("div");
-            rose.innerHTML = "🌹";
-            rose.classList.add("falling-roses");
-            document.body.appendChild(rose);
-            
-            const startPos = Math.random() * window.innerWidth;
-            const duration = Math.random() * 5 + 5;
-            const size = Math.random() * 20 + 20;
-            
-            rose.style.left = `${startPos}px`;
-            rose.style.animationDuration = `${duration}s`;
-            rose.style.fontSize = `${size}px`;
-            
-            setTimeout(() => {
-                rose.remove();
-            }, duration * 1000);
-        }
-        
-        window.onload = function() {
-            setInterval(createFallingRose, 500);
-        }
-    </script>
 </head>
 <body>
-    <h1 class="title">Happy Rose Day, My Love! 🌹</h1>
-    <div class="rose-container">
-        <img class="rose" src= "rose-day.jpeg" alt="Rotating Rose">
+
+    <audio id="roseMusic" loop>
+        <source src="rose-day.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="cover">
+        <button class="thread-btn" onclick="openSurprise()">Follow the golden thread...</button>
     </div>
-    
-    <div class="love-message">On this special day, I give you a virtual rose as a symbol of my love and admiration for you. May our love blossom like the most beautiful rose in the world! ❤️</div>
-    <br>
-    <a href="index.html">          Back to Home</a>
+
+    <div class="container">
+        <h1 id="title" class="header-text">A Love That Felt Like Fate.</h1>
+
+        <div id="hero" class="photo-container">
+            <div class="photo-frame">
+                <img src="her-with-roses.png" alt="Our Memory">
+                <div class="polaroid-caption">August 2025 – Forever.</div>
+            </div>
+        </div>
+
+        <div id="text-body" class="message">
+            <p>They say roses symbolize love, but I think they symbolize <strong>growth</strong>. In the short weeks between that mid-August spark and moving in together by the end of the month, we grew an entire lifetime of memories.</p>
+            
+            <div class="lyrics-break">"Hell was the journey but it brought me heaven..."</div>
+
+            <p>Every monthly anniversary, when I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for. Happy Rose Day, my Bacchu.</p>
+        </div>
+
+        <a href="index.html" class="back-link">Return Home</a>
+    </div>
+
+    <script>
+        function openSurprise() {
+            // Start Music
+            const audio = document.getElementById('roseMusic');
+            audio.play();
+
+            // Lift Cover
+            document.getElementById('cover').classList.add('lifted');
+
+            // Reveal animations with slight delays
+            setTimeout(() => {
+                document.getElementById('title').classList.add('reveal');
+            }, 800);
+            
+            setTimeout(() => {
+                document.getElementById('hero').classList.add('reveal');
+            }, 1600);
+
+            setTimeout(() => {
+                document.getElementById('text-body').classList.add('reveal');
+            }, 2400);
+        }
+    </script>
 </body>
 </html>
- -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -302,4 +407,5 @@
         }
     </script>
 </body>
-</html>
+</html> -->
+

@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rose Day | Our Invisible String</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
             --gold: #d4af37;
             --cream: #fffaf0;
-            --rose-dust: #b57e7e;
             --text-color: #2c2c2c;
+            --soft-rose: #a67c7c;
         }
 
         body, html {
@@ -48,12 +48,12 @@
             font-size: 1.5rem;
             color: var(--gold);
             letter-spacing: 2px;
-            transition: 0.3s;
+            transition: 0.5s;
         }
 
         .thread-btn:hover {
             letter-spacing: 5px;
-            opacity: 0.7;
+            transform: scale(1.05);
         }
 
         /* --- Main Layout --- */
@@ -62,57 +62,70 @@
             margin: 0 auto;
             padding: 80px 20px;
             text-align: center;
+            position: relative;
+        }
+
+        /* The Literal Golden Thread */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 50%;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            z-index: -1;
         }
 
         .header-text {
             font-family: 'Playfair Display', serif;
             font-style: italic;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 50px;
             opacity: 0;
             transform: translateY(20px);
             transition: 1.5s all ease;
         }
 
-        /* --- The Hero Photo Styling --- */
+        /* --- Polaroid Styling --- */
         .photo-container {
             position: relative;
             display: inline-block;
             margin-bottom: 60px;
             opacity: 0;
-            transform: scale(0.95);
+            transform: scale(0.95) rotate(-1deg);
             transition: 2s all ease;
         }
 
         .photo-frame {
             background: white;
-            padding: 15px 15px 60px 15px; /* Polaroid style */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
+            padding: 15px 15px 70px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #f2f2f2;
         }
 
         .photo-frame img {
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
             display: block;
         }
 
         .polaroid-caption {
             font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            color: var(--rose-dust);
+            font-size: 1.3rem;
+            margin-top: 25px;
+            color: var(--soft-rose);
         }
 
-        /* --- The Personal Message --- */
+        /* --- Message --- */
         .message {
-            font-size: 1.15rem;
-            line-height: 2;
-            max-width: 600px;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            max-width: 650px;
             margin: 0 auto;
             color: #444;
             opacity: 0;
             transition: 2s all ease;
+            text-align: center;
         }
 
         .lyrics-break {
@@ -120,23 +133,38 @@
             font-style: italic;
             color: var(--gold);
             margin: 40px 0;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
+        }
+
+        .arijit-quote {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: #888;
+            margin-top: 50px;
+            letter-spacing: 1px;
         }
 
         /* --- Animation Triggers --- */
         .reveal {
             opacity: 1 !important;
-            transform: translate(0) scale(1) !important;
+            transform: translate(0) scale(1) rotate(0deg) !important;
         }
 
         .back-link {
-            display: block;
-            margin-top: 60px;
+            display: inline-block;
+            margin-top: 80px;
             text-decoration: none;
             color: var(--gold);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            border-bottom: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            border-bottom: 1px solid var(--gold);
         }
     </style>
 </head>
@@ -156,7 +184,7 @@
         <div id="hero" class="photo-container">
             <div class="photo-frame">
                 <img src="her_with_roses.jpg" alt="Our Memory">
-                <div class="polaroid-caption">Love from August 2025</div>
+                <div class="polaroid-caption">Smiling Together since August 2025</div>
             </div>
         </div>
 
@@ -166,6 +194,8 @@
             <div class="lyrics-break">"Hell was the journey but it brought me heaven..."</div>
 
             <p>Every monthly anniversary, when I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for. Happy Rose Day, my Bacchu.</p>
+            
+            <div class="arijit-quote">"Tera humsafar hua... toh mukkammal ho gaya."<br>(Since I became your companion... I have become complete.)</div>
         </div>
 
         <a href="index.html" class="back-link">Return Home</a>
@@ -180,18 +210,10 @@
             // Lift Cover
             document.getElementById('cover').classList.add('lifted');
 
-            // Reveal animations with slight delays
-            setTimeout(() => {
-                document.getElementById('title').classList.add('reveal');
-            }, 800);
-            
-            setTimeout(() => {
-                document.getElementById('hero').classList.add('reveal');
-            }, 1600);
-
-            setTimeout(() => {
-                document.getElementById('text-body').classList.add('reveal');
-            }, 2400);
+            // Staggered Reveal
+            setTimeout(() => { document.getElementById('title').classList.add('reveal'); }, 800);
+            setTimeout(() => { document.getElementById('hero').classList.add('reveal'); }, 1600);
+            setTimeout(() => { document.getElementById('text-body').classList.add('reveal'); }, 2400);
         }
     </script>
 </body>
@@ -408,5 +430,6 @@
     </script>
 </body>
 </html> -->
+
 
 

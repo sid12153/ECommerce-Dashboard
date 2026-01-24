@@ -3,6 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day | Bloom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f0f0f; /* Dark, intimate, evening vibe */
+            --gold: #c5a059;
+            --rose: #8e2137;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg);
+            color: white;
+            font-family: 'Cormorant Garamond', serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* --- The Entrance (The Mist) --- */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 2s ease, visibility 2s;
+            cursor: pointer;
+        }
+
+        .enter-text {
+            text-align: center;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            color: var(--gold);
+        }
+
+        /* --- Main Stage --- */
+        .stage {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 3s ease;
+        }
+
+        .photo-reveal {
+            width: 80%;
+            max-width: 400px;
+            filter: grayscale(20%);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px;
+            transition: transform 1s ease;
+        }
+
+        .photo-reveal:hover {
+            transform: scale(1.02);
+        }
+
+        .main-img {
+            width: 100%;
+            display: block;
+        }
+
+        .rose-message {
+            margin-top: 40px;
+            max-width: 500px;
+            padding: 0 20px;
+        }
+
+        .rose-message h1 {
+            font-weight: 300;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .rose-message p {
+            font-style: italic;
+            font-size: 1.3rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .arijit-line {
+            margin-top: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        /* The "Invisible String" - A very thin, glowing line */
+        .string {
+            position: absolute;
+            width: 1px;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            top: 0;
+            left: 50%;
+        }
+
+        #overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .stage.visible {
+            opacity: 1;
+        }
+
+        .back-btn {
+            position: absolute;
+            bottom: 30px;
+            text-decoration: none;
+            color: #555;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="music" loop>
+        <source src="rose-day.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="overlay" onclick="reveal()">
+        <div class="enter-text">
+            <div style="font-size: 2rem; margin-bottom: 20px; font-family: 'Cormorant Garamond'; text-transform: none; letter-spacing: 0;">🌹</div>
+            Click to let it bloom
+        </div>
+    </div>
+
+    <div class="stage" id="mainStage">
+        <div class="string"></div>
+        
+        <div class="photo-reveal">
+            <img src="her-with-roses.png" alt="Rose Day" class="main-img">
+        </div>
+
+        <div class="rose-message">
+            <h1>Every month, a new bloom.</h1>
+            <p>Every bouquet I've brought you since we started has been a silent promise. Today, that promise is just as fresh as the very first rose.</p>
+            <p>When I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for. Happy Rose Day, mera Bacchu.</p>
+            
+        </div>
+
+        <a href="index.html" class="back-btn">Return to home</a>
+    </div>
+
+    <script>
+        function reveal() {
+            const audio = document.getElementById('music');
+            audio.play();
+
+            document.getElementById('overlay').classList.add('hidden');
+            document.getElementById('mainStage').classList.add('visible');
+        }
+    </script>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rose Day | Our Invisible String</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
@@ -208,7 +385,6 @@
 
             <p>Every monthly anniversary, when I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for. Happy Rose Day, mera Bacchu.</p>
             
-            <!-- <div class="arijit-quote">"Tera humsafar hua... toh mukkammal ho gaya."<br></div> -->
         </div>
 
         <a href="index.html" class="back-link">Return Home</a>
@@ -230,221 +406,4 @@
         }
     </script>
 </body>
-</html>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rose Day | Invisible String</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #c5a059;
-            --soft-pink: #fdf2f2;
-            --deep-rose: #8e2137;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background-color: var(--soft-pink);
-            font-family: 'Lora', serif;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* --- Cover Page --- */
-        #cover {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            transition: opacity 1s ease;
-            cursor: pointer;
-        }
-
-        #cover h2 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--gold);
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .gold-thread {
-            width: 2px;
-            height: 100px;
-            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-            margin: 20px 0;
-        }
-
-        /* --- Main Content (Hidden initially) --- */
-        #main-content {
-            opacity: 0;
-            transition: opacity 2s ease;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5em;
-            color: var(--deep-rose);
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-style: italic;
-            color: var(--gold);
-            margin-bottom: 40px;
-        }
-
-        /* Photo Styling */
-        .photo-frame {
-            position: relative;
-            display: inline-block;
-            margin: 20px auto;
-            border: 10px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transform: rotate(-2deg);
-            transition: transform 0.5s;
-        }
-
-        .photo-frame:hover {
-            transform: rotate(0deg) scale(1.02);
-        }
-
-        .photo-frame img {
-            max-width: 300px;
-            display: block;
-        }
-
-        .message-box {
-            max-width: 600px;
-            margin: 40px auto;
-            line-height: 1.8;
-            font-size: 1.2em;
-            color: #444;
-            background: rgba(255,255,255,0.5);
-            padding: 30px;
-            border-radius: 15px;
-        }
-
-        /* Rotating Rose */
-        .rose-icon {
-            width: 80px;
-            margin-top: 30px;
-            animation: slowRotate 10s linear infinite;
-        }
-
-        @keyframes slowRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .falling-rose {
-            position: fixed;
-            top: -20px;
-            pointer-events: none;
-            z-index: 50;
-            animation: fall linear forwards;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(105vh) rotate(360deg); }
-        }
-
-        .back-btn {
-            display: inline-block;
-            margin-top: 40px;
-            text-decoration: none;
-            color: var(--gold);
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 2px;
-        }
-    </style>
-</head>
-<body>
-
-    <audio id="bgMusic" loop>
-        <source src="rose-day.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="cover" onclick="startExperience()">
-        <h2>"One single thread of gold..."</h2>
-        <div class="gold-thread"></div>
-        <p>Click to open your Rose Day surprise</p>
-    </div>
-
-    <div id="main-content">
-        <h1 class="title">Happy Rose Day, My Love</h1>
-        <p class="subtitle">"Isn't it just so pretty to think, all along there was an invisible string..."</p>
-
-        <div class="photo-frame">
-            <img src="her-with-roses.jpg" alt="You with Roses">
-        </div>
-
-        <div class="message-box">
-            Since those first days in mid-August, life has moved at the speed of a dream. 
-            From meeting you to moving in together by the month's end, every step felt like fate pulling us closer. 
-            The roses I get you every month are just small tokens of a much bigger promise: 
-            that no matter how much time passes, I will always choose to keep our love blooming. 
-            You aren't just my partner; you're my "peace."
-        </div>
-
-        <img src="rose-day.jpeg" class="rose-icon" alt="Rose">
-
-        <br>
-        <a href="index.html" class="back-btn">Back to our story</a>
-    </div>
-
-    <script>
-        function startExperience() {
-            // Play Music
-            const audio = document.getElementById('bgMusic');
-            audio.play();
-
-            // Hide Cover
-            const cover = document.getElementById('cover');
-            cover.style.opacity = '0';
-            setTimeout(() => {
-                cover.style.display = 'none';
-                // Show Content
-                document.getElementById('main-content').style.opacity = '1';
-            }, 1000);
-
-            // Start Falling Roses
-            setInterval(createFallingRose, 700);
-        }
-
-        function createFallingRose() {
-            const rose = document.createElement("div");
-            rose.innerHTML = "🌹";
-            rose.className = "falling-rose";
-            document.body.appendChild(rose);
-            
-            const startX = Math.random() * window.innerWidth;
-            const duration = Math.random() * 3 + 4;
-            const size = Math.random() * 15 + 15;
-            
-            rose.style.left = startX + "px";
-            rose.style.animationDuration = duration + "s";
-            rose.style.fontSize = size + "px";
-            rose.style.opacity = Math.random() * 0.5 + 0.3; // Subtler roses
-            
-            setTimeout(() => { rose.remove(); }, duration * 1000);
-        }
-    </script>
-</body>
 </html> -->
-
-
-
-
-

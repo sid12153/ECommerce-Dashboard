@@ -3,6 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Day | Sweet Nothings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdfaf6;
+            --mocha-light: #d7ccc8;
+            --mocha-dark: #8d6e63;
+            --gold: #d4af37;
+            --text: #4e342e;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--cream);
+            color: var(--text);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Full Screen Background --- */
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('chocolate-bg.jpg') no-repeat center center/cover;
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        /* --- Entry Overlay --- */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 5000;
+            transition: opacity 1s ease;
+            cursor: pointer;
+        }
+
+        /* --- Content Layout --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: var(--mocha-dark);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-family: 'Montserrat';
+            letter-spacing: 5px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 50px;
+        }
+
+        /* --- Interactive Gourmet Box --- */
+        .chocolate-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            border: 1px solid #f0efeb;
+        }
+
+        .truffle {
+            aspect-ratio: 1;
+            background: var(--mocha-light);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        /* Different truffle shapes */
+        .truffle:nth-child(even) { border-radius: 8px; }
+        .truffle:nth-child(3n) { transform: rotate(45deg); border-radius: 4px; }
+
+        .truffle:hover {
+            transform: scale(1.1);
+            background: var(--gold);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .truffle.clicked {
+            background: var(--mocha-dark);
+            transform: scale(0.9);
+        }
+
+        /* --- Message Reveal --- */
+        #message-display {
+            min-height: 100px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--mocha-dark);
+            margin: 30px 0;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 250px;
+            margin: 40px auto;
+            transform: rotate(3deg);
+            border: 1px solid #eee;
+        }
+
+        .polaroid img { width: 100%; height: auto; }
+
+        .btn-home {
+            display: inline-block;
+            margin-top: 50px;
+            text-decoration: none;
+            color: var(--gold);
+            font-family: 'Montserrat';
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 5px;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="sweet-nothing-pal.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="bg-container"></div>
+
+    <div id="overlay" onclick="startDay()">
+        <p style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--mocha-dark);">Something sweet for you...</p>
+        <p style="font-family: 'Montserrat'; letter-spacing: 2px; font-size: 0.7rem; color: #aaa; margin-top: 10px;">TAP TO UNWRAP</p>
+    </div>
+
+    <div class="container">
+        <p class="subtitle">09 . 02 . 2026</p>
+        <h1>Sweet Nothings</h1>
+        
+        <p style="max-width: 600px; margin: 0 auto 40px; font-size: 1.2rem; line-height: 1.6;">
+            They say chocolate is the language of love, but even the finest cocoa 
+            can't compete with the "sweet nothings" we've shared over the last five months.
+        </p>
+
+        <div class="chocolate-grid">
+            <div class="truffle" onclick="reveal(0)"></div>
+            <div class="truffle" onclick="reveal(1)"></div>
+            <div class="truffle" onclick="reveal(2)"></div>
+            <div class="truffle" onclick="reveal(3)"></div>
+            <div class="truffle" onclick="reveal(4)"></div>
+            <div class="truffle" onclick="reveal(5)"></div>
+            <div class="truffle" onclick="reveal(6)"></div>
+            <div class="truffle" onclick="reveal(7)"></div>
+            <div class="truffle" onclick="reveal(8)"></div>
+        </div>
+
+        <div id="message-display">Select a truffle, Isha...</div>
+
+        <div class="polaroid">
+            <img src="us-chocolate-day.jpg" alt="Sweet Moment">
+            <p style="font-family: 'Dancing Script'; margin-top: 10px;">Sweeter than Belgian cocoa.</p>
+        </div>
+
+        <a href="index.html" class="btn-home">Return to Valentine's Week</a>
+    </div>
+
+    <script>
+        const sweetNothings = [
+            "The way you laugh at my terrible jokes.",
+            "That reconnection in 2025 was the best thing to happen to me.",
+            "You make the last five months feel like five minutes.",
+            "Your love is smoother than any silk chocolate.",
+            "I love the way you've made 'home' feel like a person.",
+            "You are my favorite 'Sweet Nothing'.",
+            "Every day with you is a new favorite flavor.",
+            "Thank you for being my peace in this chaotic world.",
+            "You deserve every bit of sweetness today and always."
+        ];
+
+        function startDay() {
+            document.getElementById('bgMusic').play();
+            document.getElementById('overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('overlay').classList.add('hidden');
+            }, 1000);
+        }
+
+        function reveal(index) {
+            const display = document.getElementById('message-display');
+            const truffles = document.querySelectorAll('.truffle');
+            
+            // Visual feedback
+            truffles[index].classList.add('clicked');
+            
+            // Smooth fade text
+            display.style.opacity = '0';
+            setTimeout(() => {
+                display.innerText = sweetNothings[index];
+                display.style.opacity = '1';
+            }, 400);
+        }
+    </script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chocolate Day</title>
     <style>
         body {
@@ -123,5 +357,4 @@
     </script>
 </body>
 </html>
-
-
+ -->

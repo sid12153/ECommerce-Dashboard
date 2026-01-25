@@ -3,6 +3,233 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day | Blooming for You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #fffcf9;
+            --gold-leaf: #d4af37;
+            --petal-pink: #f8e1e1;
+            --text-main: #4a4a4a;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg-cream);
+            color: var(--text-main);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Falling Petals Animation --- */
+        .petal {
+            position: fixed;
+            top: -10%;
+            color: var(--petal-pink);
+            user-select: none;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        /* --- The "Zaalima" Entrance --- */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 1.5s ease;
+            cursor: pointer;
+        }
+
+        .flower-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 100px 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* The Innovative Invisible String - Curvy & Organic */
+        .golden-thread-svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin: 0;
+            color: var(--gold-leaf);
+        }
+
+        /* --- Polaroid Style --- */
+        .photo-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 60px 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            border: 1px solid #f0efeb;
+            transform: rotate(2deg);
+        }
+
+        .polaroid img {
+            max-width: 100%;
+            width: 450px;
+            display: block;
+        }
+
+        /* --- The Message --- */
+        .message-box {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 40px;
+            border-radius: 50px 0 50px 0; /* Elegant asymmetrical curve */
+            border: 1px solid var(--petal-pink);
+        }
+
+        .message-box p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .lyrics {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #b35d5d; /* Dusty Rose color */
+            margin: 20px 0;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 80px;
+            text-decoration: none;
+            color: var(--gold-leaf);
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        /* Utility */
+        .hidden { opacity: 0; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="rose-day.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="overlay" onclick="startExperience()">
+        <div class="flower-icon">🌹</div>
+        <p style="font-family: 'Montserrat', sans-serif; letter-spacing: 2px; color: #888;">CLICK TO LET LOVE BLOOM</p>
+    </div>
+
+    <div class="container">
+        <svg class="golden-thread-svg" viewBox="0 0 800 1200" fill="none">
+            <path d="M400,0 C450,200 150,400 400,600 C650,800 350,1000 400,1200" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.4"/>
+        </svg>
+
+        <div class="header">
+            <h1>Rose Day</h1>
+            <p style="font-family: 'Montserrat'; font-size: 0.7rem; letter-spacing: 4px; color: var(--gold-leaf);">07 . 02 . 2026</p>
+        </div>
+
+        <div class="photo-section">
+            <div class="polaroid">
+                <img src="her_with_roses.jpg" alt="Me and Bacchu">
+                <p style="font-family: 'Dancing Script'; font-size: 1.2rem; text-align: center; margin-top: 20px; color: #888;">The only bloom that matters.</p>
+            </div>
+        </div>
+
+        <div class="message-box">
+            <h1>Every month, a new bloom.</h1>
+            <p>Every bouquet I've brought you since we started has been a silent promise. Today, that promise is just as fresh as the very first rose.</p>
+            <p>When I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for.</p>
+            <div class="lyrics">"Jo teri khatir tadpe pehle se hi,<br> Kya usey tadpana... Zaalima."</div>
+            
+            <p style="font-size: 1.1rem; opacity: 0.8;">Happy Rose Day, my Bacchu.</p>
+        </div>
+
+        <a href="index.html" class="back-link">Return to your Valentines week</a>
+    </div>
+
+    <script>
+        function startExperience() {
+            document.getElementById('bgMusic').play();
+            document.getElementById('overlay').classList.add('hidden');
+            createPetals();
+        }
+
+        // Innovative: Generates subtle falling rose petals
+        function createPetals() {
+            const container = document.body;
+            const symbols = ['🌸', '🌹', '🍃'];
+            
+            setInterval(() => {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                petal.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                petal.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                petal.style.opacity = Math.random();
+                
+                container.appendChild(petal);
+                
+                setTimeout(() => { petal.remove(); }, 7000);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rose Day | Bloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
@@ -191,240 +418,4 @@
         }
     </script>
 </body>
-</html>
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rose Day | Our Invisible String</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --gold: #d4af37;
-            --cream: #fffaf0;
-            --text-color: #2c2c2c;
-            --soft-rose: #a67c7c;
-        }
-
-        body, html {
-            margin: 0; padding: 0;
-            background-color: var(--cream);
-            font-family: 'Lora', serif;
-            color: var(--text-color);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* --- Elegant Cover Screen --- */
-        #cover {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
-        }
-
-        #cover.lifted {
-            transform: translateY(-100%);
-        }
-
-        .thread-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--gold);
-            letter-spacing: 2px;
-            transition: 0.5s;
-        }
-
-        .thread-btn:hover {
-            letter-spacing: 5px;
-            transform: scale(1.05);
-        }
-
-        /* --- Main Layout --- */
-        .container::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 2px; /* Thicker line */
-            height: 100%;
-            background: #d4af37; /* Solid Gold */
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.6); /* Adds a subtle glow */
-            z-index: -1;
-            opacity: 0.5; /* Makes it elegant, not distracting */
-        }
-
-        /* The Literal Golden Thread */
-        /* .container::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 50%;
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-            z-index: -1;
-        } */
-        
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 80px 20px;
-            text-align: center;
-            position: relative;
-        }
-
-        .header-text {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 2.8rem;
-            margin-bottom: 50px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: 1.5s all ease;
-        }
-
-        /* --- Polaroid Styling --- */
-        .photo-container {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 60px;
-            opacity: 0;
-            transform: scale(0.95) rotate(-1deg);
-            transition: 2s all ease;
-        }
-
-        .photo-frame {
-            background: white;
-            padding: 15px 15px 70px 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            border: 1px solid #f2f2f2;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            max-width: 400px;
-            display: block;
-        }
-
-        .polaroid-caption {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-top: 25px;
-            color: var(--soft-rose);
-        }
-
-        /* --- Message --- */
-        .message {
-            font-size: 1.2rem;
-            line-height: 2.2;
-            max-width: 650px;
-            margin: 0 auto;
-            color: #444;
-            opacity: 0;
-            transition: 2s all ease;
-            text-align: center;
-        }
-
-        .lyrics-break {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            color: var(--gold);
-            margin: 40px 0;
-            font-size: 1.5rem;
-        }
-
-        .arijit-quote {
-            font-family: 'Lora', serif;
-            font-style: italic;
-            font-size: 1rem;
-            color: #888;
-            margin-top: 50px;
-            letter-spacing: 1px;
-        }
-
-        /* --- Animation Triggers --- */
-        .reveal {
-            opacity: 1 !important;
-            transform: translate(0) scale(1) rotate(0deg) !important;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 80px;
-            text-decoration: none;
-            color: var(--gold);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            border-bottom: 1px solid transparent;
-            transition: 0.3s;
-        }
-
-        .back-link:hover {
-            border-bottom: 1px solid var(--gold);
-        }
-    </style>
-</head>
-<body>
-
-    <audio id="roseMusic" loop>
-        <source src="rose-day.mp3" type="audio/mpeg">
-    </audio>
-
-    <div id="cover">
-        <button class="thread-btn" onclick="openSurprise()">Follow the golden thread...</button>
-    </div>
-
-    <div class="container">
-        <h1 id="title" class="header-text">A Love That Felt Like Fate.</h1>
-
-        <div id="hero" class="photo-container">
-            <div class="photo-frame">
-                <img src="her_with_roses.jpg" alt="Our Memory">
-                <div class="polaroid-caption">Smiling Together since August 2025</div>
-            </div>
-        </div>
-
-        <div id="text-body" class="message">
-            <p>They say roses symbolize love, but I think they symbolize <strong>growth</strong>. In the short weeks between that mid-August spark and moving in together by the end of the month, we grew an entire lifetime of memories.</p>
-            
-            <div class="lyrics-break">"Hell was the journey but it brought me heaven..."</div>
-
-            <p>Every monthly anniversary, when I get you roses, it's my way of saying thank you. Thank you for making "home" a person, and for being the peace I didn't know I was looking for. Happy Rose Day, mera Bacchu.</p>
-            
-        </div>
-
-        <a href="index.html" class="back-link">Return Home</a>
-    </div>
-
-    <script>
-        function openSurprise() {
-            // Start Music
-            const audio = document.getElementById('roseMusic');
-            audio.play();
-
-            // Lift Cover
-            document.getElementById('cover').classList.add('lifted');
-
-            // Staggered Reveal
-            setTimeout(() => { document.getElementById('title').classList.add('reveal'); }, 800);
-            setTimeout(() => { document.getElementById('hero').classList.add('reveal'); }, 1600);
-            setTimeout(() => { document.getElementById('text-body').classList.add('reveal'); }, 2400);
-        }
-    </script>
-</body>
 </html> -->
-
-
-
-

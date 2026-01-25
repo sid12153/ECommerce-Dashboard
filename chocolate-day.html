@@ -3,6 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chocolate Day | 09.02</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #fdfaf6;
+            --mocha: #8d6e63;
+            --gold: #d4af37;
+            --text: #2c2c2c;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--cream);
+            color: var(--text);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- Full Screen Fixed Background --- */
+        .master-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('chocolate-bg.jpg') no-repeat center center/cover;
+            z-index: -1;
+        }
+
+        /* --- The Luxury Box (Cover) --- */
+        #box-lid-top, #box-lid-bottom {
+            position: fixed;
+            left: 0; width: 100%; height: 50%;
+            background: #fdfaf6;
+            z-index: 5000;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        #box-lid-top { top: 0; border-bottom: 2px solid var(--gold); }
+        #box-lid-bottom { bottom: 0; align-items: flex-start; border-top: 2px solid var(--gold); }
+
+        .ribbon-seal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5001;
+            background: var(--gold);
+            color: white;
+            padding: 20px 40px;
+            font-family: 'Montserrat';
+            letter-spacing: 5px;
+            cursor: pointer;
+            transition: all 0.5s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .ribbon-seal:hover { transform: translate(-50%, -50%) scale(1.1); background: var(--mocha); }
+
+        /* --- Opening Animation --- */
+        .opened #box-lid-top { transform: translateY(-100%); }
+        .opened #box-lid-bottom { transform: translateY(100%); }
+        .opened #bgMusic { display: block; }
+        .opened .ribbon-seal { opacity: 0; pointer-events: none; }
+
+        /* --- Main Content Section --- */
+        .content-wrapper {
+            background: rgba(255, 252, 249, 0.85); /* Frosted glass effect */
+            backdrop-filter: blur(5px);
+            margin: 100px auto;
+            max-width: 800px;
+            padding: 60px 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.05);
+        }
+
+        h1 { font-size: 3.5rem; font-weight: 300; margin-bottom: 40px; }
+
+        /* --- Gourmet Chocolate Box --- */
+        .choco-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 350px;
+            margin: 0 auto 40px;
+        }
+
+        .truffle {
+            aspect-ratio: 1;
+            background: #e0d7d3;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .truffle:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .truffle.active { background: var(--mocha); transform: scale(0.9); }
+
+        #memory-text {
+            min-height: 120px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--mocha);
+            padding: 20px;
+            line-height: 1.4;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 50px 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 280px;
+            margin: 40px auto;
+            transform: rotate(-2deg);
+        }
+
+        .polaroid img { width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="chocolate-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="master-bg"></div>
+
+    <div id="box-lid-top"></div>
+    <div id="box-lid-bottom"></div>
+    <div class="ribbon-seal" onclick="openBox()">UNWRAP</div>
+
+    <div class="container">
+        <div class="content-wrapper">
+            <p style="font-family: 'Montserrat'; letter-spacing: 4px; font-size: 0.7rem; color: var(--gold);">FEBRUARY 09, 2026</p>
+            <h1>Bittersweet & Beautiful</h1>
+            
+            <p style="font-size: 1.3rem; margin-bottom: 40px;">Five months of laughs, snacks, and "Sweet Nothings." Every truffle below holds a piece of our story.</p>
+
+            <div class="choco-grid">
+                <div class="truffle" onclick="showMemory(0)"></div>
+                <div class="truffle" onclick="showMemory(1)"></div>
+                <div class="truffle" onclick="showMemory(2)"></div>
+                <div class="truffle" onclick="showMemory(3)"></div>
+                <div class="truffle" onclick="showMemory(4)"></div>
+                <div class="truffle" onclick="showMemory(5)"></div>
+                <div class="truffle" onclick="showMemory(6)"></div>
+                <div class="truffle" onclick="showMemory(7)"></div>
+                <div class="truffle" onclick="showMemory(8)"></div>
+            </div>
+
+            <div id="memory-text">Tap a truffle to unwrap a memory, Isha...</div>
+
+            <div class="polaroid">
+                <img src="us-eating.jpg" alt="Our Meals">
+                <p style="font-family: 'Dancing Script'; margin-top: 15px;">Our favorite era: Meals together.</p>
+            </div>
+
+            <a href="index.html" style="text-decoration: none; color: #bbb; font-family: Montserrat; font-size: 0.7rem; letter-spacing: 2px;">RETURN TO WEEK</a>
+        </div>
+    </div>
+
+    <script>
+        const memories = [
+            "That unexpected deleted snap... the spark that started it all.",
+            "August 2025: When I told you I didn't want to be 'just friends.'",
+            "The day you proposed to me-I was the happiest guy in Bloomington.",
+            "Those video calls while you were at your Tai's place.",
+            "Our meals together-breakfast, lunch, and dinner. My favorite routine.",
+            "The way you always feed me a bit of your food.",
+            "Every time you call me Haggu... even though you're the real Haggu.",
+            "How you always keep the convo going and truly listen to me.",
+            "Five months down, a lifetime of flavors to go. Happy Chocolate Day, Bacchu."
+        ];
+
+        function openBox() {
+            document.body.classList.add('opened');
+            document.getElementById('bgMusic').play();
+        }
+
+        function showMemory(index) {
+            const display = document.getElementById('memory-text');
+            const truffles = document.querySelectorAll('.truffle');
+            
+            truffles.forEach(t => t.classList.remove('active'));
+            truffles[index].classList.add('active');
+
+            display.style.opacity = 0;
+            setTimeout(() => {
+                display.innerText = memories[index];
+                display.style.opacity = 1;
+            }, 300);
+        }
+    </script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chocolate Day | Sweet Nothings</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
     <style>
@@ -230,133 +434,4 @@
         }
     </script>
 </body>
-</html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chocolate Day</title>
-    <style>
-        body {
-            background-color: #3e2723;
-            color: #fff;
-            text-align: center;
-            font-family: 'Arial', sans-serif;
-            overflow: auto;
-        }
-        h1 {
-            font-size: 3em;
-            margin-top: 20px;
-        }
-        .chocolate-box {
-            width: 150px;
-            height: 150px;
-            background-color: #6d4c41;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            margin: 50px auto;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-        }
-        .chocolate-box:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-        .chocolate-box:after {
-            content: '🍫'; /* Chocolate emoji */
-            font-size: 3em;
-            position: absolute;
-        }
-        .message {
-            display: none;
-            font-size: 1.5em;
-            margin-top: 20px;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        /* Falling chocolates animation */
-        .chocolate-fall {
-            position: absolute;
-            top: -50px;
-            font-size: 2em;
-            animation: fall 5s linear infinite;
-        }
-        @keyframes fall {
-            0% { transform: translateY(-50px); opacity: 0; }
-            100% { transform: translateY(100vh); opacity: 1; }
-        }
-        /* Button Styling */
-        .btn {
-            background-color: #d84315;
-            color: white;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            border: none;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: 0.3s;
-            display: inline-block;
-            text-decoration: none;
-        }
-        .btn:hover {
-            background-color: #bf360c;
-            transform: scale(1.1);
-        }
-    </style>
-</head>
-<body>
-    <h1>Happy Chocolate Day, Ishu! 🍫❤️</h1>
-    <p>Click the chocolate box to reveal a sweet message!</p>
-    
-    <div class="chocolate-box" onclick="showMessage()"></div>
-    <p id="chocoMessage" class="message"></p>
-    
-    <br>
-    <button class="btn" onclick="playMusic()">🎶 Play Sweet Music</button>
-    <br><br>
-    <a href="index.html" class="btn">🏠 Back to Home</a>
-
-    <script>
-        const messages = [
-            "You are sweeter than all the chocolates in the world! 🍫❤️",
-            "Every day with you is like a box of my favorite chocolates! 🍩💖",
-            "Your love melts my heart like chocolate melts in my hands. 🍫💓",
-            "You make my life as rich and smooth as dark chocolate! 🍫😍",
-            "No chocolate can ever be as sweet as your love, Ishu! 🍫💕"
-        ];
-
-        function showMessage() {
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            const messageElement = document.getElementById("chocoMessage");
-            messageElement.innerText = messages[randomIndex];
-            messageElement.style.display = "block";
-            messageElement.style.opacity = "1";
-        }
-
-        function playMusic() {
-            let audio = new Audio('chocolate-music.mp3');
-            audio.play();
-        }
-
-        // Create falling chocolates
-        function createFallingChocolates() {
-            for (let i = 0; i < 15; i++) {
-                let chocolate = document.createElement('div');
-                chocolate.className = 'chocolate-fall';
-                chocolate.innerHTML = '🍫';
-                chocolate.style.left = Math.random() * 100 + "vw";
-                chocolate.style.animationDuration = (Math.random() * 2 + 3) + "s";
-                document.body.appendChild(chocolate);
-            }
-        }
-        createFallingChocolates();
-    </script>
-</body>
-</html>
- -->
-
-
+</html> -->

@@ -120,23 +120,34 @@
         }
 
         .back-btn {
-            display: inline-block; /* Makes it a solid block */
-            margin-top: 60px;      /* Creates space after the message */
-            margin-bottom: 40px;   /* Space at the very bottom of the page */
+            display: inline-block;
+            margin-top: 80px;
+            margin-bottom: 50px;
+            padding: 12px 28px;
             text-decoration: none;
-            color: var(--gold);    /* Changed to gold to be more visible */
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            
+            /* Colors */
+            color: var(--gold);
+            border: 1px solid rgba(197, 160, 89, 0.3); /* Subtle gold border */
+            background: rgba(255, 255, 255, 0.03); /* Nearly transparent */
+            
+            /* Text Style */
             font-family: 'Montserrat', sans-serif;
-            border-bottom: 1px solid transparent;
-            transition: 0.3s;
-            opacity: 0.6;          /* Slightly faded until hovered */
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            
+            /* Smooth transition */
+            transition: all 0.4s ease;
+            border-radius: 1px; /* Sharp, mature edges */
         }
         
         .back-btn:hover {
-            opacity: 1;
-            border-bottom: 1px solid var(--gold);
+            background: rgba(197, 160, 89, 0.1);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+            transform: translateY(-2px);
+            letter-spacing: 5px;
         }
     </style>
 </head>
@@ -413,6 +424,7 @@
     </script>
 </body>
 </html> -->
+
 
 
 

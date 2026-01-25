@@ -6,81 +6,86 @@
     <title>Rose Day | Bloom</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #0f0f0f; /* Dark, intimate, evening vibe */
-            --gold: #c5a059;
-            --rose: #8e2137;
-        }
-
-        body, html {
-            margin: 0; padding: 0;
-            background-color: var(--bg);
-            color: white;
-            font-family: 'Cormorant Garamond', serif;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* --- The Entrance (The Mist) --- */
-        #overlay {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(15, 15, 15, 0.95);
-            backdrop-filter: blur(10px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-            transition: opacity 2s ease, visibility 2s;
-            cursor: pointer;
-        }
-
-        .enter-text {
-            text-align: center;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            color: var(--gold);
-        }
-
-        /* --- Main Stage --- */
-        .stage {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 3s ease;
-        }
-
-        .photo-reveal {
-            width: 80%;
-            max-width: 400px;
-            filter: grayscale(20%);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 10px;
-            transition: transform 1s ease;
-        }
-
-        .photo-reveal:hover {
-            transform: scale(1.02);
-        }
-
-        .main-img {
-            width: 100%;
-            display: block;
-        }
-
-        .rose-message {
-            margin-top: 40px;
-            max-width: 500px;
-            padding: 0 20px;
-        }
-
+            /* --- Updated CSS for Scrolling --- */
+    :root {
+        --bg: #0f0f0f;
+        --gold: #c5a059;
+        --rose: #8e2137;
+    }
+    
+    body, html {
+        margin: 0; padding: 0;
+        background-color: var(--bg);
+        color: white;
+        font-family: 'Cormorant Garamond', serif;
+        /* CHANGED: Allow vertical scrolling, block horizontal wiggle */
+        overflow-x: hidden; 
+        overflow-y: auto;
+        height: auto; /* Let it grow */
+        min-height: 100vh;
+    }
+    
+    /* --- The Entrance stays locked to the screen --- */
+    #overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(15, 15, 15, 0.98); /* Slightly more solid */
+        backdrop-filter: blur(15px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* Higher priority */
+        transition: opacity 2s ease, visibility 2s;
+        cursor: pointer;
+    }
+    
+    /* --- Main Stage now allows content to flow --- */
+    .stage {
+        min-height: 100vh; /* Minimum one full screen */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 80px 20px; /* Added padding for top/bottom breathing room */
+        box-sizing: border-box;
+        opacity: 0;
+        transition: opacity 3s ease;
+    }
+    
+    /* THE STRING: Visible and centered */
+    .string {
+        position: absolute;
+        width: 2px;
+        height: 100px;
+        background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 0 10px rgba(197, 160, 89, 0.5);
+    }
+    
+    .photo-reveal {
+        width: 90%;
+        max-width: 400px;
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 10px;
+        background: #1a1a1a;
+        margin: 40px auto;
+    }
+    
+    .main-img {
+        width: 100%;
+        display: block;
+    }
+    
+    .rose-message {
+        max-width: 550px;
+        margin-bottom: 50px; /* Space before back button */
+    }
+    
+    /* ... keep the rest of your CSS/Script as it was ... */
         .rose-message h1 {
             font-weight: 300;
             font-size: 2.5rem;
@@ -407,4 +412,5 @@
     </script>
 </body>
 </html> -->
+
 

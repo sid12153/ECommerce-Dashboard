@@ -3,6 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teddy Day | 10.02</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-cream: #f9f7f2;
+            --warm-taupe: #a89f91;
+            --gold: #d4af37;
+            --text-main: #3d3d3d;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--soft-cream);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        /* --- BACKGROUND FIX --- */
+        .page-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('teddy-bg.jpg') no-repeat center center/cover;
+            z-index: -2; /* Deepest layer */
+        }
+
+        /* --- The Blanket Overlay --- */
+        #blanket {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff;
+            background-image: url('https://www.transparenttextures.com/patterns/cream-pixels.png'); /* Soft fabric texture */
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: ns-resize;
+            transition: transform 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+        }
+
+        .blanket-tag {
+            border: 1px solid var(--warm-taupe);
+            padding: 10px 20px;
+            font-family: 'Montserrat';
+            letter-spacing: 3px;
+            color: var(--warm-taupe);
+        }
+
+        /* --- Main Content --- */
+        .main-content {
+            padding: 100px 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .revealed .main-content { opacity: 1; }
+
+        .polaroid-group {
+            position: relative;
+            max-width: 600px;
+            margin: 50px auto;
+            height: 400px;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 10px 10px 40px 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            width: 220px;
+            position: absolute;
+            border: 1px solid #eee;
+            transition: transform 0.5s;
+        }
+
+        .p1 { transform: rotate(-5deg); left: 10%; z-index: 2; }
+        .p2 { transform: rotate(5deg); right: 10%; top: 40px; z-index: 1; }
+
+        .polaroid img { width: 100%; height: auto; }
+
+        .warmth-note {
+            max-width: 600px;
+            margin: 40px auto;
+            background: rgba(255,255,255,0.7);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px inset white;
+        }
+
+        h1 { font-size: 3rem; color: var(--warm-taupe); font-weight: 300; }
+
+        .btn-home {
+            text-decoration: none;
+            color: var(--warm-taupe);
+            font-family: 'Montserrat';
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            border-bottom: 1px solid var(--warm-taupe);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="teddy-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="page-bg"></div>
+
+    <div id="blanket" onclick="pullBlanket()">
+        <div class="blanket-tag">PULL DOWN TO GET COZY</div>
+        <p style="margin-top: 20px; font-style: italic; color: #ccc;">(Tap to tuck in)</p>
+    </div>
+
+    <div class="main-content">
+        <p style="font-family: 'Montserrat'; letter-spacing: 5px; font-size: 0.7rem; color: var(--gold);">FEBRUARY 10, 2026</p>
+        <h1>Your Safe Space</h1>
+
+        <div class="warmth-note">
+            <p style="font-size: 1.4rem; line-height: 1.8;">
+                There is no teddy bear or blanket in the world that matches the warmth of how we spend our evenings. 
+                Whether it's getting lost in the lives of the <i>Modern Family</i> crew, <i>drinking Hot Chocolate in our Mugs</i> or 
+                arguing over <i>How I Met Your Mother</i>, those moments are my favorite part of the day.
+            </p>
+            <!-- <p style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--gold); margin-top: 30px;">
+                "My favorite pillow is your arm."
+            </p> -->
+            <p style="font-size: 1.2rem; opacity: 0.8;">
+                I love how you tuck yourself in and fall asleep so close to me. 
+                Knowing you feel safe enough to use my arm as your pillow is the best 5-month anniversary gift I could ask for.
+            </p>
+        </div>
+
+        <div class="polaroid-group">
+            <div class="polaroid p1">
+                <img src="us-cuddling.jpg" alt="Cuddle Time">
+                <p style="font-family: 'Dancing Script'; margin-top: 10px;">The best arm-pillow in town.</p>
+            </div>
+            <div class="polaroid p2">
+                <img src="tv-show-moment.jpg" alt="Our Shows">
+                <p style="font-family: 'Dancing Script'; margin-top: 10px;">Harry Potter marathons.</p>
+            </div>
+        </div>
+
+        <br><br>
+        <a href="index.html" class="btn-home">BACK TO THE WEEK</a>
+    </div>
+
+    <script>
+        function pullBlanket() {
+            const blanket = document.getElementById('blanket');
+            const music = document.getElementById('bgMusic');
+            
+            // Play music on interaction
+            music.play();
+
+            // Slide the blanket down
+            blanket.style.transform = 'translateY(100%)';
+            document.body.classList.add('revealed');
+
+            // Optional: Remove blanket from DOM after animation
+            setTimeout(() => {
+                blanket.style.display = 'none';
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teddy Day</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
@@ -86,3 +261,4 @@
 </body>
 
 </html>
+ -->

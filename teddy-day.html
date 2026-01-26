@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teddy Day | 10.02</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --soft-cream: #f9f7f2;
+            --soft-cream: #fdfaf6;
+            --deep-bronze: #705c53; /* Better contrast for visibility */
             --warm-taupe: #a89f91;
             --gold: #d4af37;
             --text-main: #3d3d3d;
@@ -21,20 +22,20 @@
             height: 100%;
         }
 
-        /* --- BACKGROUND FIX --- */
+        /* --- BACKGROUND --- */
         .page-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: url('teddy-bg.jpg') no-repeat center center/cover;
-            z-index: -2; /* Deepest layer */
+            background: url('teddy-bg.png') no-repeat center center/cover;
+            z-index: -2;
         }
 
-        /* --- The Blanket Overlay --- */
+        /* --- The Blanket Overlay (Fixed Visibility) --- */
         #blanket {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #fff;
-            background-image: url('https://www.transparenttextures.com/patterns/cream-pixels.png'); /* Soft fabric texture */
+            background-image: url('https://www.transparenttextures.com/patterns/cream-pixels.png');
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -45,11 +46,24 @@
         }
 
         .blanket-tag {
-            border: 1px solid var(--warm-taupe);
-            padding: 10px 20px;
+            border: 2px solid var(--deep-bronze);
+            padding: 15px 30px;
             font-family: 'Montserrat';
-            letter-spacing: 3px;
-            color: var(--warm-taupe);
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: var(--deep-bronze);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .instruction {
+            margin-top: 25px;
+            font-family: 'Montserrat';
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            color: var(--deep-bronze);
+            text-transform: uppercase;
+            opacity: 0.8;
         }
 
         /* --- Main Content --- */
@@ -57,51 +71,58 @@
             padding: 100px 20px;
             text-align: center;
             opacity: 0;
-            transition: opacity 2s ease;
+            transition: opacity 2.5s ease;
         }
 
         .revealed .main-content { opacity: 1; }
 
+        .warmth-note {
+            max-width: 650px;
+            margin: 40px auto;
+            background: rgba(255, 252, 249, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 50px;
+            border-radius: 40px;
+            border: 1px solid white;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+        }
+
+        h1 { font-size: 3.5rem; color: var(--deep-bronze); font-weight: 300; margin-bottom: 30px; }
+
         .polaroid-group {
-            position: relative;
-            max-width: 600px;
-            margin: 50px auto;
-            height: 400px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+            flex-wrap: wrap;
         }
 
         .polaroid {
             background: white;
-            padding: 10px 10px 40px 10px;
+            padding: 12px 12px 45px 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            width: 220px;
-            position: absolute;
+            width: 240px;
             border: 1px solid #eee;
-            transition: transform 0.5s;
+            transition: transform 0.3s;
         }
 
-        .p1 { transform: rotate(-5deg); left: 10%; z-index: 2; }
-        .p2 { transform: rotate(5deg); right: 10%; top: 40px; z-index: 1; }
+        .p1 { transform: rotate(-3deg); }
+        .p2 { transform: rotate(3deg); }
+        .polaroid:hover { transform: scale(1.05) rotate(0deg); z-index: 10; }
 
         .polaroid img { width: 100%; height: auto; }
 
-        .warmth-note {
-            max-width: 600px;
-            margin: 40px auto;
-            background: rgba(255,255,255,0.7);
-            padding: 40px;
-            border-radius: 30px;
-            border: 1px inset white;
-        }
-
-        h1 { font-size: 3rem; color: var(--warm-taupe); font-weight: 300; }
-
         .btn-home {
+            display: inline-block;
+            margin-top: 60px;
             text-decoration: none;
-            color: var(--warm-taupe);
+            color: var(--deep-bronze);
             font-family: 'Montserrat';
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 3px;
-            border-bottom: 1px solid var(--warm-taupe);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--deep-bronze);
+            padding-bottom: 5px;
         }
     </style>
 </head>
@@ -114,42 +135,41 @@
     <div class="page-bg"></div>
 
     <div id="blanket" onclick="pullBlanket()">
-        <div class="blanket-tag">PULL DOWN TO GET COZY</div>
-        <p style="margin-top: 20px; font-style: italic; color: #ccc;">(Tap to tuck in)</p>
+        <div class="blanket-tag">TAP TO UNWRAP COZINESS</div>
+        <p class="instruction">Pull down to get tucked in</p>
     </div>
 
     <div class="main-content">
-        <p style="font-family: 'Montserrat'; letter-spacing: 5px; font-size: 0.7rem; color: var(--gold);">FEBRUARY 10, 2026</p>
-        <h1>Your Safe Space</h1>
+        <p style="font-family: 'Montserrat'; letter-spacing: 6px; font-size: 0.75rem; color: var(--gold); margin-bottom: 10px;">FEBRUARY 10 . 2026</p>
+        <h1>My Favorite Human Teddy</h1>
 
         <div class="warmth-note">
-            <p style="font-size: 1.4rem; line-height: 1.8;">
-                There is no teddy bear or blanket in the world that matches the warmth of how we spend our evenings. 
-                Whether it's getting lost in the lives of the <i>Modern Family</i> crew, <i>drinking Hot Chocolate in our Mugs</i> or 
-                arguing over <i>How I Met Your Mother</i>, those moments are my favorite part of the day.
+            <p style="font-size: 1.5rem; line-height: 1.8; color: var(--text-main);">
+                While the world celebrates with plush toys, I’m celebrating the fact that I get to be your personal, human-sized teddy bear every single night. 
             </p>
-            <!-- <p style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--gold); margin-top: 30px;">
-                "My favorite pillow is your arm."
-            </p> -->
-            <p style="font-size: 1.2rem; opacity: 0.8;">
-                I love how you tuck yourself in and fall asleep so close to me. 
-                Knowing you feel safe enough to use my arm as your pillow is the best 5-month anniversary gift I could ask for.
+            <p style="font-size: 1.3rem; line-height: 1.7; margin-top: 25px;">
+                Nothing makes me happier than seeing you grab your favorite throw, tucking yourself into the blankets, and settling in for our <i>Modern Family</i> or <i>HIMYM</i> marathons with our hot chocolate mugs in hand. 
+            </p>
+            <p style="font-family: 'Dancing Script'; font-size: 2.2rem; color: var(--gold); margin-top: 35px; border-top: 1px solid #eee; pt: 20px;">
+                "Your favorite pillow is my arm."
+            </p>
+            <p style="font-size: 1.2rem; opacity: 0.9; margin-top: 20px; font-style: italic;">
+                The way you fall asleep so close to me, almost hugging me as you drift off, is the most precious part of our last five months. I promise to always be the safe space you can tuck yourself into.
             </p>
         </div>
 
         <div class="polaroid-group">
             <div class="polaroid p1">
                 <img src="us-cuddling.jpg" alt="Cuddle Time">
-                <p style="font-family: 'Dancing Script'; margin-top: 10px;">The best arm-pillow in town.</p>
+                <p style="font-family: 'Dancing Script'; margin-top: 15px; font-size: 1.2rem;">The arm-pillow chronicles.</p>
             </div>
             <div class="polaroid p2">
                 <img src="tv-show-moment.jpg" alt="Our Shows">
-                <p style="font-family: 'Dancing Script'; margin-top: 10px;">Harry Potter marathons.</p>
+                <p style="font-family: 'Dancing Script'; margin-top: 15px; font-size: 1.2rem;">Harry Potter marathons.</p>
             </div>
         </div>
 
-        <br><br>
-        <a href="index.html" class="btn-home">BACK TO THE WEEK</a>
+        <a href="index.html" class="btn-home">Back to the week</a>
     </div>
 
     <script>
@@ -157,14 +177,10 @@
             const blanket = document.getElementById('blanket');
             const music = document.getElementById('bgMusic');
             
-            // Play music on interaction
             music.play();
-
-            // Slide the blanket down
             blanket.style.transform = 'translateY(100%)';
             document.body.classList.add('revealed');
 
-            // Optional: Remove blanket from DOM after animation
             setTimeout(() => {
                 blanket.style.display = 'none';
             }, 1500);
@@ -262,3 +278,4 @@
 
 </html>
  -->
+

@@ -9,12 +9,13 @@
         :root {
             --text-light: #fdfaf6;
             --gold-metallic: #FFD700;
-            --gold-shadow: rgba(0,0,0,0.5);
+            --gold-shadow: rgba(0,0,0,0.6);
+            --glass-bg: rgba(0, 0, 0, 0.65); /* Slightly darker for better contrast */
         }
 
         body, html {
             margin: 0; padding: 0;
-            background-color: #fff;
+            background-color: #000;
             color: var(--text-light);
             font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
@@ -22,13 +23,18 @@
         }
 
         /* --- THE VIBRANT BACKGROUND --- */
+        /* Fixed and visible only after scratch */
         .fixed-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('propose-bg.png') no-repeat center center;
             background-size: cover;
             z-index: -2;
+            opacity: 0;
+            transition: opacity 1.5s ease;
         }
+
+        .revealed .fixed-bg { opacity: 1; }
 
         /* --- Audio Overlay --- */
         #overlay {
@@ -60,7 +66,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             min-height: 100vh;
             text-align: center;
             box-sizing: border-box;
@@ -69,31 +75,36 @@
 
         .revealed .main-content { opacity: 1; visibility: visible; }
 
-        /* --- THE PROPOSAL CARD (The Secret Ingredient) --- */
+        /* --- THE IMPRESSIVE PROPOSAL CARD --- */
         .proposal-card {
-            background: rgba(0, 0, 0, 0.55); /* Dark enough to read, but see-through */
-            backdrop-filter: blur(12px); /* High-end frosted glass effect */
-            -webkit-backdrop-filter: blur(12px);
-            padding: 50px 30px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 700px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 60px 40px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            max-width: 800px;
             width: 100%;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+            margin-top: 20px;
+            animation: cardFadeIn 2s ease forwards;
         }
 
-        /* --- THE BIGGER POLAROID --- */
+        @keyframes cardFadeIn {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* --- THE PROPOSAL IMAGE (Main Highlight) --- */
         .polaroid-frame {
             background: #fff;
-            padding: 15px 15px 60px 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            transform: rotate(-1.5deg);
-            width: 90%;
-            max-width: 500px; /* Large focus image */
-            margin-bottom: 40px;
+            padding: 15px 15px 70px 15px;
+            box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+            transform: rotate(-1deg);
+            width: 100%;
+            max-width: 550px; /* Bigger as requested */
+            margin: 0 auto 50px;
+            border: 1px solid #ddd;
         }
 
         .polaroid-frame img {
@@ -103,59 +114,63 @@
         }
 
         h1 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-size: clamp(3rem, 8vw, 4.5rem);
             font-weight: 300;
             color: var(--gold-metallic);
-            margin: 10px 0;
-            text-shadow: 0 2px 10px var(--gold-shadow);
+            margin: 0;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 15px var(--gold-shadow);
         }
 
         .proposal-text p {
-            font-size: clamp(1.1rem, 4vw, 1.5rem);
-            line-height: 1.6;
-            margin-bottom: 25px;
+            font-size: clamp(1.2rem, 4vw, 1.7rem);
+            line-height: 1.8;
+            margin: 25px 0;
             color: #fff;
+            font-weight: 300;
         }
 
         .will-you {
             font-family: 'Dancing Script', cursive;
-            font-size: clamp(2rem, 8vw, 2.8rem);
+            font-size: clamp(2.5rem, 10vw, 3.5rem);
             color: var(--gold-metallic);
-            margin-top: 20px;
+            margin-top: 30px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
 
         /* --- Heart Seal --- */
         .heart-seal-container {
-            margin-top: 30px;
+            margin-top: 40px;
             cursor: pointer;
         }
 
         .heart-seal {
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: white;
             background: var(--gold-metallic);
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
-            transition: 0.4s ease;
-            border: 3px solid white;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid white;
         }
 
         .heart-seal:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
             background: #ff4d4d;
+            box-shadow: 0 0 50px rgba(255, 77, 77, 0.6);
         }
 
         .heart-label {
             display: block;
-            margin-top: 15px;
+            margin-top: 20px;
             font-family: 'Montserrat';
-            letter-spacing: 3px;
-            font-size: 0.8rem;
+            letter-spacing: 4px;
+            font-size: 0.9rem;
             color: var(--gold-metallic);
             font-weight: 600;
         }
@@ -164,7 +179,7 @@
         #success-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 6000;
             display: none;
             flex-direction: column;
@@ -172,12 +187,12 @@
             align-items: center;
             text-align: center;
             padding: 40px;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
         }
 
         .success-letter {
-            max-width: 500px;
-            font-size: 2rem;
+            max-width: 600px;
+            font-size: 2.2rem;
             color: #fff;
             font-family: 'Dancing Script', cursive;
         }
@@ -203,7 +218,7 @@
 
     <div id="overlay" onclick="init()">
         <div style="font-size: 3rem; margin-bottom: 20px;">✨</div>
-        <p style="font-family: 'Montserrat'; letter-spacing: 3px; color: #aaa;">UNCOVER THE MOMENT</p>
+        <p style="font-family: 'Montserrat'; letter-spacing: 3px; color: #aaa;">UNWRAP THE QUESTION</p>
     </div>
 
     <canvas id="scratch-canvas"></canvas>
@@ -211,14 +226,14 @@
     <div class="main-content" id="main-ui">
         <div class="proposal-card">
             <div class="polaroid-frame">
-                <img src="propose-day.jpeg" alt="Our Moment">
-                <p style="font-family: 'Dancing Script'; font-size: 1.6rem; margin-top: 15px; color: #333;">A scene straight out of a drama...</p>
+                <img src="propose-day.jpeg" alt="The Moment">
+                <p style="font-family: 'Dancing Script'; font-size: 1.8rem; margin-top: 15px; color: #333;">A scene straight out of a drama...</p>
             </div>
 
             <h1>Isha,</h1>
             <div class="proposal-text">
                 <p>From our unexpected reconnection in 2025 to every moment we've shared since August, these last five months have been my best time in the US.</p>
-                <p>I’m so happy we found our way back to each other and that I get to share this space (and this home) with you.</p>
+                <p>I’m so happy we found our way back to each other and that I get to share this space (and this home) with you. Every day with you is a new favorite memory.</p>
                 <p class="will-you">Will you be my Valentine?</p>
             </div>
 
@@ -227,7 +242,7 @@
                 <span class="heart-label">TAP TO SEAL</span>
             </div>
             
-            <a href="index.html" style="margin-top: 40px; text-decoration: none; color: rgba(255,255,255,0.6); font-family: Montserrat; font-size: 0.7rem; letter-spacing: 2px;">RETURN TO WEEK</a>
+            <a href="index.html" style="margin-top: 50px; text-decoration: none; color: rgba(255,255,255,0.4); font-family: Montserrat; font-size: 0.7rem; letter-spacing: 3px;">RETURN TO THE WEEK</a>
         </div>
     </div>
 
@@ -235,16 +250,14 @@
         <div class="success-letter">
             <p>The best eras are the ones we build together.</p>
             <p>I'm so happy you said yes, Ishu. ❤️</p>
-            <p style="font-size: 1.3rem; font-family: 'Montserrat'; color: var(--gold-metallic); margin-top: 40px;">08.02.2026</p>
-            <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 30px; background: none; border: 1px solid #fff; color: #fff; padding: 10px 25px; cursor: pointer;">Close</button>
+            <p style="font-size: 1.4rem; font-family: 'Montserrat'; color: var(--gold-metallic); margin-top: 40px;">08.02.2026</p>
+            <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 30px; background: none; border: 1px solid #fff; color: #fff; padding: 12px 30px; cursor: pointer; letter-spacing: 2px;">CLOSE</button>
         </div>
     </div>
 
     <script>
         const canvas = document.getElementById('scratch-canvas');
         const ctx = canvas.getContext('2d');
-        const scratchImg = new Image();
-        scratchImg.src = 'propose-bg.png';
 
         let isDrawing = false;
         let pointsCleared = 0;
@@ -261,17 +274,29 @@
         function setupCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            const ratio = Math.max(canvas.width / scratchImg.width, canvas.height / scratchImg.height);
-            const x = (canvas.width - scratchImg.width * ratio) / 2;
-            const y = (canvas.height - scratchImg.height * ratio) / 2;
-            ctx.drawImage(scratchImg, 0, 0, scratchImg.width, scratchImg.height, x, y, scratchImg.width * ratio, scratchImg.height * ratio);
+
+            // NEW: Instead of the background image, we use a luxury Gold Gradient for the scratch layer
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, '#D4AF37'); // Gold
+            gradient.addColorStop(0.5, '#F9E4B7'); // Champagne
+            gradient.addColorStop(1, '#D4AF37'); // Gold
             
-            ctx.font = "italic 300 22px 'Cormorant Garamond'";
-            ctx.fillStyle = "white";
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add some "shimmer" particles to the scratch layer
+            for (let i = 0; i < 100; i++) {
+                ctx.fillStyle = "rgba(255, 255, 255, 0.3)";
+                ctx.beginPath();
+                ctx.arc(Math.random() * canvas.width, Math.random() * canvas.height, 1, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            ctx.font = "italic 400 24px 'Cormorant Garamond'";
+            ctx.fillStyle = "#5c4d26";
             ctx.textAlign = "center";
-            ctx.shadowBlur = 10;
-            ctx.shadowColor = "black";
-            ctx.fillText("SCRATCH TO REVEAL THE SCENE", canvas.width/2, canvas.height/2);
+            ctx.fillText("SCRATCH TO REVEAL A PROMISE", canvas.width/2, canvas.height/2);
+            
             ctx.globalCompositeOperation = 'destination-out';
         }
 
@@ -279,12 +304,15 @@
             if (!isDrawing) return;
             const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
             const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+            
             ctx.beginPath();
-            ctx.arc(x, y, 45, 0, Math.PI * 2);
+            ctx.arc(x, y, 50, 0, Math.PI * 2);
             ctx.fill();
+            
             createSparkle(x, y);
             pointsCleared++;
-            if (pointsCleared > 400) { 
+            
+            if (pointsCleared > 450) { 
                 canvas.style.opacity = '0';
                 document.body.classList.add('revealed');
                 setTimeout(() => canvas.remove(), 1500);
@@ -294,15 +322,15 @@
         function createSparkle(x, y) {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
-            const size = Math.random() * 5 + 2;
+            const size = Math.random() * 5 + 3;
             sparkle.style.width = size + 'px';
             sparkle.style.height = size + 'px';
             sparkle.style.left = x + 'px';
             sparkle.style.top = y + 'px';
             document.body.appendChild(sparkle);
-            const dx = (Math.random() - 0.5) * 100;
-            const dy = (Math.random() - 0.5) * 100;
-            sparkle.animate([{ opacity: 1 }, { transform: `translate(${dx}px, ${dy}px)`, opacity: 0 }], 800).onfinish = () => sparkle.remove();
+            const dx = (Math.random() - 0.5) * 120;
+            const dy = (Math.random() - 0.5) * 120;
+            sparkle.animate([{ opacity: 1 }, { transform: `translate(${dx}px, ${dy}px) scale(0)`, opacity: 0 }], 900).onfinish = () => sparkle.remove();
         }
 
         canvas.addEventListener('mousedown', () => isDrawing = true);
@@ -312,7 +340,7 @@
         canvas.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); });
 
         function celebrate() {
-            for(let i=0; i<50; i++) {
+            for(let i=0; i<60; i++) {
                 setTimeout(() => createSparkle(Math.random() * window.innerWidth, Math.random() * window.innerHeight), i * 15);
             }
             setTimeout(() => document.getElementById('success-modal').style.display = 'flex', 600);
@@ -320,7 +348,7 @@
     </script>
 </body>
 </html>
-            
+
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -624,6 +652,3 @@
     </script>
 </body>
 </html> -->
-
-
-

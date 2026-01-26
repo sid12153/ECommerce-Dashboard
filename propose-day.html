@@ -7,20 +7,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* UPDATED COLOR PALETTE FOR DARK BACKGROUND */
-            --bg-cream: #fffcf9;
-            --text-light: #fdfaf6; /* New light text color */
-            --gold-metallic: #FFD700; /* Brighter gold for better contrast */
-            --gold-shadow: rgba(0,0,0,0.8); /* Strong shadow for legibility */
+            --text-light: #fdfaf6;
+            --gold-metallic: #FFD700;
+            --gold-shadow: rgba(0,0,0,0.9);
         }
 
         body, html {
             margin: 0; padding: 0;
-            background-color: var(--text-dark); /* Dark base */
-            color: var(--text-light); /* Light text default */
+            background-color: #000;
+            color: var(--text-light);
             font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
+            height: 100%;
         }
+
+        /* --- THE STABLE BACKGROUND LAYER --- */
+        .fixed-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('propose-bg.png') no-repeat center center;
+            background-size: cover;
+            z-index: -2;
+        }
+
+        /* --- THE CINEMATIC DARK OVERLAY (Ensures consistency) --- */
+        .dark-tint {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); /* Deeply dark for maximum text pop */
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .revealed .dark-tint { opacity: 1; }
 
         /* --- Audio Overlay --- */
         #overlay {
@@ -32,7 +52,7 @@
             z-index: 5000;
             transition: opacity 1s ease;
             cursor: pointer;
-            color: #333; /* Keep overlay text dark */
+            color: #333;
         }
 
         /* --- Scratch Canvas --- */
@@ -44,119 +64,66 @@
             transition: opacity 1.5s ease;
         }
 
-        /* --- Main Content (Revealed) --- */
+        /* --- Main Content --- */
         .main-content {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 2s ease;
+            transition: opacity 2.5s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 100px 20px;
+            padding: 80px 20px;
             min-height: 100vh;
             text-align: center;
             box-sizing: border-box;
-            /* Use your new image here. Assumes it's named propose-bg.png */
-            background: url('propose-bg.png') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* --- THE FIX: Darker Overlay --- */
-        .main-content::before {
-            content: '';
-            position: fixed;
-            top:0; left:0; width:100%; height:100%;
-            /* Changed from light to a dark, cinemtaic wash */
-            background: rgba(0, 0, 0, 0.5); 
-            z-index: -1;
-            backdrop-filter: blur(2px); /* Softens the background slightly */
+            position: relative;
+            z-index: 10;
         }
 
         .revealed .main-content { opacity: 1; visibility: visible; }
 
+        /* --- THE BIGGER POLAROID --- */
         .polaroid-frame {
-            /* Slightly translucent off-white so it doesn't look too stark */
-            background: rgba(253, 250, 246, 0.95);
-            padding: 15px 15px 60px 15px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            transform: rotate(-2deg);
-            width: 90%;
-            max-width: 400px;
+            background: rgba(253, 250, 246, 0.98);
+            padding: 20px 20px 70px 20px; /* More space for the 'caption' area */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            transform: rotate(-1.5deg);
+            width: 95%;
+            max-width: 550px; /* Significantly upsized as requested */
             border: 1px solid rgba(255,255,255,0.2);
             margin-bottom: 50px;
-            color: #333; /* Keep text inside polaroid dark */
+            color: #222;
         }
 
         .polaroid-frame img {
             width: 100%;
             height: auto;
             display: block;
+            border: 1px solid #ddd;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: clamp(3rem, 8vw, 4.5rem);
             font-weight: 300;
             color: var(--gold-metallic);
             margin: 20px 0;
-            /* Added strong shadow so gold pops off the background */
-            text-shadow: 0 2px 15px var(--gold-shadow);
+            text-shadow: 0 3px 20px var(--gold-shadow);
         }
 
         .proposal-text {
-            max-width: 600px;
-            font-size: 1.6rem;
-            line-height: 1.7;
+            max-width: 700px;
+            font-size: 1.7rem;
+            line-height: 1.8;
             margin-bottom: 50px;
-            /* Subtle shadow for body text readability */
-            text-shadow: 0 1px 5px rgba(0,0,0,0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
             font-weight: 400;
         }
 
-        /* --- Innovative Heart Button --- */
-        .heart-seal-container {
-            position: relative;
-            margin-top: 30px;
-            cursor: pointer;
-        }
-
-        .heart-seal {
-            font-size: 3rem;
-            color: white;
-            background: var(--gold-metallic);
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid white;
-        }
-
-        .heart-seal:hover {
-            transform: scale(1.1);
-            background: #ff4d4d;
-            box-shadow: 0 0 50px rgba(255, 77, 77, 0.7);
-        }
-
-        .heart-label {
-            display: block;
-            margin-top: 20px;
-            font-family: 'Montserrat';
-            letter-spacing: 4px;
-            font-size: 0.9rem;
-            color: var(--gold-metallic);
-            font-weight: 600;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-        }
-
-        /* --- Success Message Modal --- */
+        /* --- Success Modal --- */
         #success-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            /* Darkened modal background for cinematic feel */
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.92);
             z-index: 6000;
             display: none;
             flex-direction: column;
@@ -164,21 +131,51 @@
             align-items: center;
             text-align: center;
             padding: 40px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
         }
 
         .success-letter {
-            max-width: 500px;
-            font-size: 2rem;
+            max-width: 600px;
+            font-size: 2.2rem;
             color: var(--text-light);
             font-family: 'Dancing Script', cursive;
             animation: slideUp 1s ease;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- Heart Seal --- */
+        .heart-seal-container {
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        .heart-seal {
+            font-size: 3.5rem;
+            color: white;
+            background: var(--gold-metallic);
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.4);
+            transition: all 0.5s;
+            border: 3px solid white;
+        }
+
+        .heart-seal:hover {
+            transform: scale(1.15);
+            background: #ff4d4d;
+        }
+
+        .heart-label {
+            display: block;
+            margin-top: 20px;
+            font-family: 'Montserrat';
+            letter-spacing: 4px;
+            font-size: 1rem;
+            color: var(--gold-metallic);
+            font-weight: 600;
         }
 
         .sparkle {
@@ -187,7 +184,6 @@
             border-radius: 50%;
             pointer-events: none;
             z-index: 3000;
-            box-shadow: 0 0 10px var(--gold-metallic);
         }
 
         .hidden { display: none !important; }
@@ -199,6 +195,9 @@
         <source src="propose-day.mp3" type="audio/mpeg">
     </audio>
 
+    <div class="fixed-bg"></div>
+    <div class="dark-tint"></div>
+
     <div id="overlay" onclick="init()">
         <div style="font-size: 3rem; margin-bottom: 20px;">✨</div>
         <p style="font-family: 'Montserrat'; letter-spacing: 3px; color: #aaa;">UNCOVER THE MOMENT</p>
@@ -208,15 +207,15 @@
 
     <div class="main-content" id="main-ui">
         <div class="polaroid-frame">
-            <img src="propose-day.jpeg" alt="Our Moment">
-            <p style="font-family: 'Dancing Script'; font-size: 1.6rem; margin-top: 15px; color: #333;">A scene straight out of a drama...</p>
+            <img src="propose-day.jpeg" alt="Our Special Moment">
+            <p style="font-family: 'Dancing Script'; font-size: 1.8rem; margin-top: 20px; color: #333;">A scene straight out of a drama...</p>
         </div>
 
         <h1>Isha,</h1>
         <div class="proposal-text">
             <p>From our unexpected reconnection in 2025 to every moment we've shared since August, these last five months have been my best time in the US.</p>
             <p>I’m so happy we found our way back to each other and that I get to share this space (and this home) with you.</p>
-            <p style="font-family: 'Dancing Script'; font-size: 2.5rem; color: var(--gold-metallic); margin-top: 30px; text-shadow: 0 2px 15px rgba(0,0,0,1);">Will you be my Valentine?</p>
+            <p style="font-family: 'Dancing Script'; font-size: 2.8rem; color: var(--gold-metallic); margin-top: 30px; text-shadow: 0 4px 20px rgba(0,0,0,1);">Will you be my Valentine?</p>
         </div>
 
         <div class="heart-seal-container" onclick="celebrate()">
@@ -224,15 +223,15 @@
             <span class="heart-label">TAP TO SEAL</span>
         </div>
         
-        <a href="index.html" style="margin: 60px 0 30px; text-decoration: none; color: var(--text-light); font-family: Montserrat; font-size: 0.8rem; letter-spacing: 3px; opacity: 0.8;">RETURN TO WEEK</a>
+        <a href="index.html" style="margin: 60px 0 30px; text-decoration: none; color: #ccc; font-family: Montserrat; font-size: 0.85rem; letter-spacing: 3px;">RETURN TO WEEK</a>
     </div>
 
     <div id="success-modal">
         <div class="success-letter">
             <p>The best eras are the ones we build together.</p>
             <p>I'm so happy you said yes, Ishu. ❤️</p>
-            <p style="font-size: 1.4rem; font-family: 'Montserrat'; color: var(--gold-metallic); margin-top: 40px;">08.02.2026</p>
-            <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 30px; background: none; border: 1px solid var(--gold-metallic); color: var(--gold-metallic); padding: 10px 30px; cursor: pointer; font-family: Montserrat; letter-spacing: 2px;">CLOSE</button>
+            <p style="font-size: 1.5rem; font-family: 'Montserrat'; color: var(--gold-metallic); margin-top: 50px;">08.02.2026</p>
+            <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 40px; background: none; border: 1px solid var(--gold-metallic); color: var(--gold-metallic); padding: 12px 35px; cursor: pointer; font-family: Montserrat; letter-spacing: 2px;">CLOSE</button>
         </div>
     </div>
 
@@ -240,8 +239,7 @@
         const canvas = document.getElementById('scratch-canvas');
         const ctx = canvas.getContext('2d');
         const scratchImg = new Image();
-        // Ensure this matches the filename of the image you generated
-        scratchImg.src = 'propose-bg.png'; 
+        scratchImg.src = 'propose-bg.png';
 
         let isDrawing = false;
         let pointsCleared = 0;
@@ -259,21 +257,17 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            const hRatio = canvas.width / scratchImg.width;
-            const vRatio = canvas.height / scratchImg.height;
-            const ratio = Math.max(hRatio, vRatio);
-            const centerShift_x = (canvas.width - scratchImg.width * ratio) / 2;
-            const centerShift_y = (canvas.height - scratchImg.height * ratio) / 2;
+            const ratio = Math.max(canvas.width / scratchImg.width, canvas.height / scratchImg.height);
+            const x = (canvas.width - scratchImg.width * ratio) / 2;
+            const y = (canvas.height - scratchImg.height * ratio) / 2;
 
-            ctx.drawImage(scratchImg, 0, 0, scratchImg.width, scratchImg.height,
-                          centerShift_x, centerShift_y, scratchImg.width * ratio, scratchImg.height * ratio);
+            ctx.drawImage(scratchImg, 0, 0, scratchImg.width, scratchImg.height, x, y, scratchImg.width * ratio, scratchImg.height * ratio);
 
-            // Updated text color for the scratch canvas hint
             ctx.font = "italic 300 24px 'Cormorant Garamond'";
-            ctx.fillStyle = "#fffcf9"; // Cream color
+            ctx.fillStyle = "#fffcf9";
             ctx.textAlign = "center";
             ctx.shadowBlur = 15;
-            ctx.shadowColor = "rgba(0,0,0,1)"; // Strong shadow for readability
+            ctx.shadowColor = "rgba(0,0,0,1)";
             ctx.fillText("SCRATCH TO REVEAL THE SCENE", canvas.width/2, canvas.height/2);
             
             ctx.globalCompositeOperation = 'destination-out';
@@ -285,14 +279,13 @@
             const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
             
             ctx.beginPath();
-            ctx.arc(x, y, 45, 0, Math.PI * 2);
+            ctx.arc(x, y, 50, 0, Math.PI * 2);
             ctx.fill();
             
-            // Use brighter gold for sparkles against dark bg
             createSparkle(x, y, '#FFD700'); 
             pointsCleared++;
             
-            if (pointsCleared > 450) { 
+            if (pointsCleared > 400) { 
                 canvas.style.opacity = '0';
                 document.body.classList.add('revealed');
                 setTimeout(() => canvas.remove(), 1500);
@@ -303,20 +296,20 @@
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
             if (color) sparkle.style.background = color;
-            const size = Math.random() * 5 + 2;
+            const size = Math.random() * 5 + 3;
             sparkle.style.width = size + 'px';
             sparkle.style.height = size + 'px';
             sparkle.style.left = x + 'px';
             sparkle.style.top = y + 'px';
             document.body.appendChild(sparkle);
 
-            const dx = (Math.random() - 0.5) * 120;
-            const dy = (Math.random() - 0.5) * 120;
+            const dx = (Math.random() - 0.5) * 150;
+            const dy = (Math.random() - 0.5) * 150;
 
             sparkle.animate([
                 { transform: 'translate(0, 0) scale(1)', opacity: 1 },
                 { transform: `translate(${dx}px, ${dy}px) scale(0)`, opacity: 0 }
-            ], { duration: 800, easing: 'ease-out' }).onfinish = () => sparkle.remove();
+            ], { duration: 900, easing: 'ease-out' }).onfinish = () => sparkle.remove();
         }
 
         canvas.addEventListener('mousedown', () => isDrawing = true);
@@ -337,7 +330,7 @@
             }, 600);
         }
 
-        scratchImg.onload = () => { console.log("Scratch image loaded"); };
+        scratchImg.onload = () => { console.log("Loaded"); };
     </script>
 </body>
 </html>
@@ -645,4 +638,5 @@
     </script>
 </body>
 </html> -->
+
 

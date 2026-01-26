@@ -9,19 +9,19 @@
         :root {
             --text-light: #fdfaf6;
             --gold-metallic: #FFD700;
-            --gold-shadow: rgba(0,0,0,0.9);
+            --gold-shadow: rgba(0,0,0,0.5);
         }
 
         body, html {
             margin: 0; padding: 0;
-            background-color: #000;
+            background-color: #fff;
             color: var(--text-light);
             font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
             height: 100%;
         }
 
-        /* --- THE STABLE BACKGROUND LAYER --- */
+        /* --- THE VIBRANT BACKGROUND --- */
         .fixed-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -29,18 +29,6 @@
             background-size: cover;
             z-index: -2;
         }
-
-        /* --- THE CINEMATIC DARK OVERLAY (Ensures consistency) --- */
-        .dark-tint {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75); /* Deeply dark for maximum text pop */
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 2s ease;
-        }
-
-        .revealed .dark-tint { opacity: 1; }
 
         /* --- Audio Overlay --- */
         #overlay {
@@ -64,82 +52,76 @@
             transition: opacity 1.5s ease;
         }
 
-        /* --- Main Content --- */
+        /* --- Main Content Layout --- */
         .main-content {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 2.5s ease;
+            transition: opacity 2s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 80px 20px;
+            padding: 60px 20px;
             min-height: 100vh;
             text-align: center;
             box-sizing: border-box;
-            position: relative;
             z-index: 10;
         }
 
         .revealed .main-content { opacity: 1; visibility: visible; }
 
+        /* --- THE PROPOSAL CARD (The Secret Ingredient) --- */
+        .proposal-card {
+            background: rgba(0, 0, 0, 0.55); /* Dark enough to read, but see-through */
+            backdrop-filter: blur(12px); /* High-end frosted glass effect */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px 30px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         /* --- THE BIGGER POLAROID --- */
         .polaroid-frame {
-            background: rgba(253, 250, 246, 0.98);
-            padding: 20px 20px 70px 20px; /* More space for the 'caption' area */
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            background: #fff;
+            padding: 15px 15px 60px 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             transform: rotate(-1.5deg);
-            width: 95%;
-            max-width: 550px; /* Significantly upsized as requested */
-            border: 1px solid rgba(255,255,255,0.2);
-            margin-bottom: 50px;
-            color: #222;
+            width: 90%;
+            max-width: 500px; /* Large focus image */
+            margin-bottom: 40px;
         }
 
         .polaroid-frame img {
             width: 100%;
             height: auto;
             display: block;
-            border: 1px solid #ddd;
         }
 
         h1 {
-            font-size: clamp(3rem, 8vw, 4.5rem);
+            font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 300;
             color: var(--gold-metallic);
-            margin: 20px 0;
-            text-shadow: 0 3px 20px var(--gold-shadow);
+            margin: 10px 0;
+            text-shadow: 0 2px 10px var(--gold-shadow);
         }
 
-        .proposal-text {
-            max-width: 700px;
-            font-size: 1.7rem;
-            line-height: 1.8;
-            margin-bottom: 50px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-            font-weight: 400;
+        .proposal-text p {
+            font-size: clamp(1.1rem, 4vw, 1.5rem);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #fff;
         }
 
-        /* --- Success Modal --- */
-        #success-modal {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 6000;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 40px;
-            backdrop-filter: blur(12px);
-        }
-
-        .success-letter {
-            max-width: 600px;
-            font-size: 2.2rem;
-            color: var(--text-light);
+        .will-you {
             font-family: 'Dancing Script', cursive;
-            animation: slideUp 1s ease;
+            font-size: clamp(2rem, 8vw, 2.8rem);
+            color: var(--gold-metallic);
+            margin-top: 20px;
         }
 
         /* --- Heart Seal --- */
@@ -149,33 +131,55 @@
         }
 
         .heart-seal {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: white;
             background: var(--gold-metallic);
-            width: 110px;
-            height: 110px;
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            box-shadow: 0 0 35px rgba(255, 215, 0, 0.4);
-            transition: all 0.5s;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transition: 0.4s ease;
             border: 3px solid white;
         }
 
         .heart-seal:hover {
-            transform: scale(1.15);
+            transform: scale(1.1);
             background: #ff4d4d;
         }
 
         .heart-label {
             display: block;
-            margin-top: 20px;
+            margin-top: 15px;
             font-family: 'Montserrat';
-            letter-spacing: 4px;
-            font-size: 1rem;
+            letter-spacing: 3px;
+            font-size: 0.8rem;
             color: var(--gold-metallic);
             font-weight: 600;
+        }
+
+        /* --- Success Modal --- */
+        #success-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 6000;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            backdrop-filter: blur(15px);
+        }
+
+        .success-letter {
+            max-width: 500px;
+            font-size: 2rem;
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
         }
 
         .sparkle {
@@ -196,7 +200,6 @@
     </audio>
 
     <div class="fixed-bg"></div>
-    <div class="dark-tint"></div>
 
     <div id="overlay" onclick="init()">
         <div style="font-size: 3rem; margin-bottom: 20px;">✨</div>
@@ -206,32 +209,34 @@
     <canvas id="scratch-canvas"></canvas>
 
     <div class="main-content" id="main-ui">
-        <div class="polaroid-frame">
-            <img src="propose-day.jpeg" alt="Our Special Moment">
-            <p style="font-family: 'Dancing Script'; font-size: 1.8rem; margin-top: 20px; color: #333;">A scene straight out of a drama...</p>
-        </div>
+        <div class="proposal-card">
+            <div class="polaroid-frame">
+                <img src="propose-day.jpeg" alt="Our Moment">
+                <p style="font-family: 'Dancing Script'; font-size: 1.6rem; margin-top: 15px; color: #333;">A scene straight out of a drama...</p>
+            </div>
 
-        <h1>Isha,</h1>
-        <div class="proposal-text">
-            <p>From our unexpected reconnection in 2025 to every moment we've shared since August, these last five months have been my best time in the US.</p>
-            <p>I’m so happy we found our way back to each other and that I get to share this space (and this home) with you.</p>
-            <p style="font-family: 'Dancing Script'; font-size: 2.8rem; color: var(--gold-metallic); margin-top: 30px; text-shadow: 0 4px 20px rgba(0,0,0,1);">Will you be my Valentine?</p>
-        </div>
+            <h1>Isha,</h1>
+            <div class="proposal-text">
+                <p>From our unexpected reconnection in 2025 to every moment we've shared since August, these last five months have been my best time in the US.</p>
+                <p>I’m so happy we found our way back to each other and that I get to share this space (and this home) with you.</p>
+                <p class="will-you">Will you be my Valentine?</p>
+            </div>
 
-        <div class="heart-seal-container" onclick="celebrate()">
-            <div class="heart-seal">❤️</div>
-            <span class="heart-label">TAP TO SEAL</span>
+            <div class="heart-seal-container" onclick="celebrate()">
+                <div class="heart-seal">❤️</div>
+                <span class="heart-label">TAP TO SEAL</span>
+            </div>
+            
+            <a href="index.html" style="margin-top: 40px; text-decoration: none; color: rgba(255,255,255,0.6); font-family: Montserrat; font-size: 0.7rem; letter-spacing: 2px;">RETURN TO WEEK</a>
         </div>
-        
-        <a href="index.html" style="margin: 60px 0 30px; text-decoration: none; color: #ccc; font-family: Montserrat; font-size: 0.85rem; letter-spacing: 3px;">RETURN TO WEEK</a>
     </div>
 
     <div id="success-modal">
         <div class="success-letter">
             <p>The best eras are the ones we build together.</p>
             <p>I'm so happy you said yes, Ishu. ❤️</p>
-            <p style="font-size: 1.5rem; font-family: 'Montserrat'; color: var(--gold-metallic); margin-top: 50px;">08.02.2026</p>
-            <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 40px; background: none; border: 1px solid var(--gold-metallic); color: var(--gold-metallic); padding: 12px 35px; cursor: pointer; font-family: Montserrat; letter-spacing: 2px;">CLOSE</button>
+            <p style="font-size: 1.3rem; font-family: 'Montserrat'; color: var(--gold-metallic); margin-top: 40px;">08.02.2026</p>
+            <button onclick="document.getElementById('success-modal').style.display='none'" style="margin-top: 30px; background: none; border: 1px solid #fff; color: #fff; padding: 10px 25px; cursor: pointer;">Close</button>
         </div>
     </div>
 
@@ -256,20 +261,17 @@
         function setupCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-
             const ratio = Math.max(canvas.width / scratchImg.width, canvas.height / scratchImg.height);
             const x = (canvas.width - scratchImg.width * ratio) / 2;
             const y = (canvas.height - scratchImg.height * ratio) / 2;
-
             ctx.drawImage(scratchImg, 0, 0, scratchImg.width, scratchImg.height, x, y, scratchImg.width * ratio, scratchImg.height * ratio);
-
-            ctx.font = "italic 300 24px 'Cormorant Garamond'";
-            ctx.fillStyle = "#fffcf9";
-            ctx.textAlign = "center";
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = "rgba(0,0,0,1)";
-            ctx.fillText("SCRATCH TO REVEAL THE SCENE", canvas.width/2, canvas.height/2);
             
+            ctx.font = "italic 300 22px 'Cormorant Garamond'";
+            ctx.fillStyle = "white";
+            ctx.textAlign = "center";
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "black";
+            ctx.fillText("SCRATCH TO REVEAL THE SCENE", canvas.width/2, canvas.height/2);
             ctx.globalCompositeOperation = 'destination-out';
         }
 
@@ -277,14 +279,11 @@
             if (!isDrawing) return;
             const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
             const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
-            
             ctx.beginPath();
-            ctx.arc(x, y, 50, 0, Math.PI * 2);
+            ctx.arc(x, y, 45, 0, Math.PI * 2);
             ctx.fill();
-            
-            createSparkle(x, y, '#FFD700'); 
+            createSparkle(x, y);
             pointsCleared++;
-            
             if (pointsCleared > 400) { 
                 canvas.style.opacity = '0';
                 document.body.classList.add('revealed');
@@ -292,49 +291,36 @@
             }
         }
 
-        function createSparkle(x, y, color) {
+        function createSparkle(x, y) {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
-            if (color) sparkle.style.background = color;
-            const size = Math.random() * 5 + 3;
+            const size = Math.random() * 5 + 2;
             sparkle.style.width = size + 'px';
             sparkle.style.height = size + 'px';
             sparkle.style.left = x + 'px';
             sparkle.style.top = y + 'px';
             document.body.appendChild(sparkle);
-
-            const dx = (Math.random() - 0.5) * 150;
-            const dy = (Math.random() - 0.5) * 150;
-
-            sparkle.animate([
-                { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-                { transform: `translate(${dx}px, ${dy}px) scale(0)`, opacity: 0 }
-            ], { duration: 900, easing: 'ease-out' }).onfinish = () => sparkle.remove();
+            const dx = (Math.random() - 0.5) * 100;
+            const dy = (Math.random() - 0.5) * 100;
+            sparkle.animate([{ opacity: 1 }, { transform: `translate(${dx}px, ${dy}px)`, opacity: 0 }], 800).onfinish = () => sparkle.remove();
         }
 
         canvas.addEventListener('mousedown', () => isDrawing = true);
         window.addEventListener('mouseup', () => isDrawing = false);
         canvas.addEventListener('mousemove', scratch);
         canvas.addEventListener('touchstart', (e) => { isDrawing = true; e.preventDefault(); });
-        canvas.addEventListener('touchend', () => isDrawing = false);
         canvas.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); });
 
         function celebrate() {
-            for(let i=0; i<60; i++) {
-                setTimeout(() => {
-                    createSparkle(Math.random() * window.innerWidth, Math.random() * window.innerHeight, '#FFD700');
-                }, i * 15);
+            for(let i=0; i<50; i++) {
+                setTimeout(() => createSparkle(Math.random() * window.innerWidth, Math.random() * window.innerHeight), i * 15);
             }
-            setTimeout(() => {
-                document.getElementById('success-modal').style.display = 'flex';
-            }, 600);
+            setTimeout(() => document.getElementById('success-modal').style.display = 'flex', 600);
         }
-
-        scratchImg.onload = () => { console.log("Loaded"); };
     </script>
 </body>
 </html>
-
+            
 <!-- <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -638,5 +624,6 @@
     </script>
 </body>
 </html> -->
+
 
 

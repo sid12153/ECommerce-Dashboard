@@ -59,7 +59,7 @@
         }
 
         /* --- Main Content Layout --- */
-        .main-content {
+        /* .main-content {
             opacity: 0;
             visibility: hidden;
             background: url('propose-bg.png') no-repeat center center;
@@ -73,8 +73,24 @@
             text-align: center;
             box-sizing: border-box;
             z-index: 10;
-        }
+        } */
 
+        .main-content {
+            opacity: 0;
+            visibility: hidden;
+            /* Fixed: Background now stays anchored and fits the screen correctly */
+            background: url('propose-bg.png') no-repeat center center fixed;
+            background-size: cover; 
+            transition: opacity 2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            min-height: 100vh;
+            text-align: center;
+            box-sizing: border-box;
+            z-index: 10;
+        }
         .revealed .main-content { opacity: 1; visibility: visible; }
 
         /* --- THE IMPRESSIVE PROPOSAL CARD --- */
@@ -144,6 +160,49 @@
         .heart-seal-container {
             margin-top: 40px;
             cursor: pointer;
+            /* Added: This forces the circle and the label to align in the center */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .heart-seal {
+            font-size: 3.5rem;
+            color: white;
+            background: var(--gold-metallic);
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid white;
+            /* Ensures the circle doesn't shift */
+            margin: 0 auto; 
+        }
+        
+        .heart-seal:hover {
+            transform: scale(1.15);
+            background: #ff4d4d;
+            box-shadow: 0 0 50px rgba(255, 77, 77, 0.6);
+        }
+        
+        .heart-label {
+            display: block;
+            margin-top: 20px;
+            font-family: 'Montserrat';
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            color: var(--gold-metallic);
+            font-weight: 600;
+            text-align: center;
+        }
+        /* .heart-seal-container {
+            margin-top: 40px;
+            cursor: pointer;
         }
 
         .heart-seal {
@@ -175,7 +234,7 @@
             font-size: 0.9rem;
             color: var(--gold-metallic);
             font-weight: 600;
-        }
+        } */
 
         /* --- Success Modal --- */
         #success-modal {
@@ -654,4 +713,5 @@
     </script>
 </body>
 </html> -->
+
 

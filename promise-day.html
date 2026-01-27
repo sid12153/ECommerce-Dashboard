@@ -174,36 +174,86 @@
         <input type="range" id="lightSlider" min="0" max="100" value="0">
         <span class="slider-label">Slide to Rise</span>
     </div>
-
+    
     <script>
         const slider = document.getElementById('lightSlider');
         const bg = document.getElementById('bg');
         const mask = document.getElementById('mask');
         const content = document.getElementById('content');
-
+        const cards = [document.getElementById('card1'), document.getElementById('card2'), document.getElementById('card3')];
+        
         function startExperience() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('bgMusic').play();
-            content.style.opacity = '1';
+            // We keep the main container visible, but individual elements will fade
+            content.style.opacity = '1'; 
         }
-
+        
         slider.addEventListener('input', (e) => {
-            const val = e.target.value;
+            const val = e.target.value; // 0 to 100
+            const ratio = val / 100;
+        
+            // 1. Dynamic Background Brightness
+            // Scales from 0.2 (dim) to 1.0 (full brightness)
+            bg.style.filter = `brightness(${0.2 + (ratio * 0.8)})`;
             
-            // Adjust Background Brightness
-            bg.style.filter = `brightness(${0.2 + (val / 100) * 0.8})`;
-            mask.style.background = `rgba(0,0,0,${0.8 - (val / 100) * 0.8})`;
-
-            // Reveal cards based on slider progress
-            if (val > 20) document.getElementById('card1').classList.add('show-card');
-            if (val > 50) document.getElementById('card2').classList.add('show-card');
-            if (val > 80) document.getElementById('card3').classList.add('show-card');
+            // 2. Dynamic Mask Opacity
+            // Scales from 0.8 (dark) to 0.0 (clear)
+            mask.style.background = `rgba(0,0,0,${0.8 - (ratio * 0.8)})`;
+        
+            // 3. Smooth Card Fading
+            // Card 1 starts fading in at 10%, full at 40%
+            cards[0].style.opacity = Math.max(0, Math.min(1, (val - 10) / 30));
+            cards[0].style.transform = `translateY(${20 - (cards[0].style.opacity * 20)}px)`;
+        
+            // Card 2 starts fading in at 40%, full at 70%
+            cards[1].style.opacity = Math.max(0, Math.min(1, (val - 40) / 30));
+            cards[1].style.transform = `translateY(${20 - (cards[1].style.opacity * 20)}px)`;
+        
+            // Card 3 starts fading in at 70%, full at 100%
+            cards[2].style.opacity = Math.max(0, Math.min(1, (val - 70) / 30));
+            cards[2].style.transform = `translateY(${20 - (cards[2].style.opacity * 20)}px)`;
             
+            // Label change at the peak
+            const label = document.querySelector('.slider-label');
             if (val == 100) {
-                document.querySelector('.slider-label').innerText = "Our Daylight";
-                document.querySelector('.slider-label').style.color = "#d4af37";
+                label.innerText = "You are my daylight";
+                label.style.color = "#d4af37";
+                label.style.fontWeight = "600";
+            } else {
+                label.innerText = "Slide to Rise";
+                label.style.color = "white";
+                label.style.fontWeight = "400";
             }
         });
+        // const slider = document.getElementById('lightSlider');
+        // const bg = document.getElementById('bg');
+        // const mask = document.getElementById('mask');
+        // const content = document.getElementById('content');
+
+        // function startExperience() {
+        //     document.getElementById('overlay').style.display = 'none';
+        //     document.getElementById('bgMusic').play();
+        //     content.style.opacity = '1';
+        // }
+
+        // slider.addEventListener('input', (e) => {
+        //     const val = e.target.value;
+            
+        //     // Adjust Background Brightness
+        //     bg.style.filter = `brightness(${0.2 + (val / 100) * 0.8})`;
+        //     mask.style.background = `rgba(0,0,0,${0.8 - (val / 100) * 0.8})`;
+
+        //     // Reveal cards based on slider progress
+        //     if (val > 20) document.getElementById('card1').classList.add('show-card');
+        //     if (val > 50) document.getElementById('card2').classList.add('show-card');
+        //     if (val > 80) document.getElementById('card3').classList.add('show-card');
+            
+        //     if (val == 100) {
+        //         document.querySelector('.slider-label').innerText = "Our Daylight";
+        //         document.querySelector('.slider-label').style.color = "#d4af37";
+        //     }
+        // });
     </script>
 </body>
 </html>
@@ -342,6 +392,7 @@
 
 
  -->
+
 
 
 

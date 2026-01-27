@@ -3,6 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise Day | 11.02</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Montserrat:wght@300;400;600&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --cream: #fdfaf6;
+            --text: #2c2c2c;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: #000;
+            color: var(--text);
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        /* --- BACKGROUND LAYER --- */
+        .page-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('promise-bg.png') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -2;
+            filter: brightness(0.2); /* Starts dark */
+            transition: filter 0.1s linear;
+        }
+
+        /* --- DARK OVERLAY --- */
+        .light-mask {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: -1;
+            transition: background 0.1s linear;
+        }
+
+        /* --- CONTENT --- */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 20px 150px;
+            min-height: 100vh;
+            text-align: center;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        /* --- THE PROMISE SECTIONS --- */
+        .promise-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 700px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .show-card { opacity: 1; transform: translateY(0); }
+
+        h1 { font-size: 3.5rem; color: var(--gold); font-weight: 300; margin-bottom: 10px; }
+        h2 { font-family: 'Montserrat'; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 30px; }
+        
+        .promise-list { text-align: left; display: inline-block; margin: 20px 0; font-size: 1.2rem; line-height: 2; }
+        .promise-list li { list-style: none; position: relative; padding-left: 25px; margin-bottom: 10px; }
+        .promise-list li::before { content: '✧'; position: absolute; left: 0; color: var(--gold); }
+
+        /* --- SLIDER UI --- */
+        .slider-wrap {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 400px;
+            z-index: 2000;
+            text-align: center;
+        }
+
+        input[type=range] {
+            width: 100%;
+            cursor: pointer;
+            accent-color: var(--gold);
+        }
+
+        .slider-label {
+            font-family: 'Montserrat';
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: white;
+            text-transform: uppercase;
+            margin-top: 15px;
+            display: block;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* --- Audio Overlay --- */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: white;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 5000;
+            cursor: pointer;
+        }
+
+        .btn-home { margin-top: 40px; text-decoration: none; color: var(--gold); font-family: Montserrat; font-size: 0.7rem; letter-spacing: 2px; border-bottom: 1px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="promise-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="page-bg" id="bg"></div>
+    <div class="light-mask" id="mask"></div>
+
+    <div id="overlay" onclick="startExperience()">
+        <p style="font-size: 3rem;">☀️</p>
+        <p style="font-family: 'Montserrat'; letter-spacing: 3px; color: #aaa;">BRING THE DAYLIGHT</p>
+    </div>
+
+    <div class="main-content" id="content">
+        <h2>February 11 . 2026</h2>
+        <h1>The Vows of Us</h1>
+
+        <div class="promise-card" id="card1">
+            <p style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--gold);">The Accidental Forever</p>
+            <p style="font-size: 1.3rem; line-height: 1.7;">
+                In August, I thought your visit was just a short trip, a chance to make you fall in love with me. I never imagined I’d find my best roommate and a partner I can’t even dream of waking up without. 
+                From morning gym hugs to goodnight kisses, you aren't just a part of my life, Isha... you are the life I was waiting for.
+            </p>
+        </div>
+
+        <div class="promise-card" id="card2">
+            <p style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--gold);">The Daily Vows</p>
+            <ul class="promise-list">
+                <li>I promise you will always be fed and cared for.</li>
+                <li>I promise your side of the sidewalk will always be the safe one.</li>
+                <li>I promise you’ll never have to carry the heavy things alone.</li>
+                <li>I promise to always tuck you in and ensure you’re warm.</li>
+            </ul>
+        </div>
+
+        <div class="promise-card" id="card3">
+            <p style="font-family: 'Dancing Script'; font-size: 2rem; color: var(--gold);">The Journey Forward</p>
+            <p style="font-size: 1.3rem; line-height: 1.7;">
+                My Bacchu, I promise to stay with you and be your strongest support through all thick and thin. I promise to do my best to not let you down and be there for you anytime you need me. 
+                In the next five months, I promise to be a better man for you. To listen with my whole heart, to be less stubborn, and to support your dreams as if they were my own. Even if sometimes things aren't going well between us, I Promise my love for you will always be unwavering, a silent promise that I'll be there for you, protect you from everything.
+            </p>
+        </div>
+
+        <a href="index.html" class="btn-home">RETURN TO THE WEEK</a>
+    </div>
+
+    <div class="slider-wrap" id="slider-ui">
+        <input type="range" id="lightSlider" min="0" max="100" value="0">
+        <span class="slider-label">Slide to Rise</span>
+    </div>
+
+    <script>
+        const slider = document.getElementById('lightSlider');
+        const bg = document.getElementById('bg');
+        const mask = document.getElementById('mask');
+        const content = document.getElementById('content');
+
+        function startExperience() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('bgMusic').play();
+            content.style.opacity = '1';
+        }
+
+        slider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            
+            // Adjust Background Brightness
+            bg.style.filter = `brightness(${0.2 + (val / 100) * 0.8})`;
+            mask.style.background = `rgba(0,0,0,${0.8 - (val / 100) * 0.8})`;
+
+            // Reveal cards based on slider progress
+            if (val > 20) document.getElementById('card1').classList.add('show-card');
+            if (val > 50) document.getElementById('card2').classList.add('show-card');
+            if (val > 80) document.getElementById('card3').classList.add('show-card');
+            
+            if (val == 100) {
+                document.querySelector('.slider-label').innerText = "Our Daylight";
+                document.querySelector('.slider-label').style.color = "#d4af37";
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promise Day</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <style>
@@ -132,3 +339,4 @@
 </html>
 
 
+ -->
